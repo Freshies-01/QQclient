@@ -28,8 +28,14 @@ export class AuthServerProvider {
       password: credentials.password,
       rememberMe: credentials.rememberMe
     };
+
+    this.$localStorage.store('blahblah', '123');
+    console.log(this.$localStorage.retrieve('blahblah'));
+
     return this.http
-      .post(SERVER_API_URL + 'api/authenticate', data, { observe: 'response' })
+      .post(SERVER_API_URL + 'api/authenticate', data, {
+        observe: 'response'
+      })
       .pipe(map(authenticateSuccess.bind(this)));
 
     function authenticateSuccess(resp) {

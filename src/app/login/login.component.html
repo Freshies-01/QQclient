@@ -1,10 +1,15 @@
-<form [formGroup]="">
+<form [formGroup]="loginForm" (ngSubmit)="OnSubmitLoginForm()">
   <mat-form-field appearance="outline">
     <mat-label>Username</mat-label>
-    <input matInput placeholder="username">
+    <input formControlName="username" placeholder="username" matInput>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput>
+    <input formControlName="password" matInput>
   </mat-form-field>
+  <button mat-stroked-button>Sign In</button>
 </form>
+
+
+<h1>DeBug</h1>
+{{loginForm.getRawValue() | json}}

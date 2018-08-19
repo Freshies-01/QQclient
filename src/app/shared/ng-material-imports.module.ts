@@ -4,7 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCardModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatButtonModule
 } from '@angular/material';
 
 @NgModule({
@@ -12,8 +13,9 @@ import {
     BrowserAnimationsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
-  exports: [MatCardModule, MatFormFieldModule, MatInputModule]
+  exports: [MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule]
 })
 export class NgMaterialImportsModule {}
