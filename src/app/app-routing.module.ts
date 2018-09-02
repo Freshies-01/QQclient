@@ -5,6 +5,8 @@ import { RouterModule, Routes, Route } from "@angular/router";
 import { LoginComponent } from "./shared/login-component/login.component";
 import { NavigationLayoutComponent } from "app/layout/navigation-layout.component";
 
+import { UserRouteAccessService } from "app/core/auth/user-route-access-service";
+
 const appRoutes: Routes = [
   {
     path: "login",
@@ -16,6 +18,8 @@ const appRoutes: Routes = [
   {
     path: "",
     component: NavigationLayoutComponent,
+    canActivate: [UserRouteAccessService],
+    data: { authorities: ["ROLE_ADMIN"] },
     children: []
   }
 ];

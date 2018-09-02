@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
 
   OnSubmitLoginForm() {
     const data = this.loginForm.getRawValue();
-    this.authServerProvider
-      .login(data)
-      .subscribe(result => this.navigateToNextPage);
+    this.authServerProvider.login(data).subscribe(result => {
+      this.navigateToNextPage();
+    });
   }
 
   navigateToNextPage() {

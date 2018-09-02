@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 
 import { Principal } from "app/core";
 
+import { AuthServerProvider } from "app/core/auth/auth-jwt.service";
+
 @Component({
   selector: "app-nav-top",
   templateUrl: "./nav-top.component.html",
@@ -12,11 +14,17 @@ export class NavTopComponent {
   @Output()
   toogleNav = new EventEmitter();
 
-  constructor(private principal: Principal, private router: Router) {}
+  constructor(
+    private principal: Principal,
+    private router: Router,
+    private authProvider: AuthServerProvider
+  ) {}
 
   signOut() {
-    alert("hook up login button to login service!");
-    this.router.navigate([""]);
+    this.authProvider.logout().subscribe(null, null, () => {
+      console.log("signOut navigated");
+      this.router.navigate(["login"]);
+    });
   }
 
   isAuthenticated(): Boolean {

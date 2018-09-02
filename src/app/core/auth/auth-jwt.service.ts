@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { LocalStorageService, SessionStorageService } from "ngx-webstorage";
 
-import { SERVER_API_URL } from '../../app.constants';
+import { SERVER_API_URL } from "../../app.constants";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AuthServerProvider {
   constructor(
     private http: HttpClient,
@@ -16,8 +16,8 @@ export class AuthServerProvider {
 
   getToken() {
     return (
-      this.$localStorage.retrieve('authenticationToken') ||
-      this.$sessionStorage.retrieve('authenticationToken')
+      this.$localStorage.retrieve("authenticationToken") ||
+      this.$sessionStorage.retrieve("authenticationToken")
     );
   }
 
@@ -29,18 +29,15 @@ export class AuthServerProvider {
       rememberMe: credentials.rememberMe
     };
 
-    this.$localStorage.store('blahblah', '123');
-    console.log(this.$localStorage.retrieve('blahblah'));
-
     return this.http
-      .post(SERVER_API_URL + 'api/authenticate', data, {
-        observe: 'response'
+      .post(SERVER_API_URL + "api/authenticate", data, {
+        observe: "response"
       })
       .pipe(map(authenticateSuccess.bind(this)));
 
     function authenticateSuccess(resp) {
-      const bearerToken = resp.headers.get('Authorization');
-      if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+      const bearerToken = resp.headers.get("Authorization");
+      if (bearerToken && bearerToken.slice(0, 7) === "Bearer ") {
         const jwt = bearerToken.slice(7, bearerToken.length);
         this.storeAuthenticationToken(jwt, credentials.rememberMe);
         return jwt;
@@ -53,22 +50,22 @@ export class AuthServerProvider {
       this.storeAuthenticationToken(jwt, rememberMe);
       return Promise.resolve(jwt);
     } else {
-      return Promise.reject('auth-jwt-service Promise reject'); // Put appropriate error message here
+      return Promise.reject("auth-jwt-service Promise reject"); // Put appropriate error message here
     }
   }
 
   storeAuthenticationToken(jwt, rememberMe) {
     if (rememberMe) {
-      this.$localStorage.store('authenticationToken', jwt);
+      this.$localStorage.store("authenticationToken", jwt);
     } else {
-      this.$sessionStorage.store('authenticationToken', jwt);
+      this.$sessionStorage.store("authenticationToken", jwt);
     }
   }
 
   logout(): Observable<any> {
     return new Observable(observer => {
-      this.$localStorage.clear('authenticationToken');
-      this.$sessionStorage.clear('authenticationToken');
+      this.$localStorage.clear("authenticationToken");
+      this.$sessionStorage.clear("authenticationToken");
       observer.complete();
     });
   }
