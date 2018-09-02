@@ -1,0 +1,72 @@
+<div>
+    <form (ngSubmit)="save()" [formGroup]="appForm">
+        <div class="formField">
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let item of statusOptions | keys" [value]="item.key">
+                        {{item.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Employee</mat-label>
+            <jhi-employee-field #employeePicker1 formControlName="employee"></jhi-employee-field>
+            <button matSuffix mat-icon-button type="button" (click)="employeePicker1.openEmployeeSelectorDialog()">
+                <mat-icon style="color: #6c757d;">edit</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="formField">
+            <mat-form-field appearance="outline">
+                <mat-label>Date of Leave</mat-label>
+                <input matInput [matDatepicker]="picker2 " formControlName="dateOfLeave">
+                <mat-datepicker-toggle matSuffix [for]="picker2 "></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="formField">
+            <mat-form-field appearance="outline">
+                <mat-label>Date completed</mat-label>
+                <input matInput [matDatepicker]="dateCompleted_picker4" formControlName="dateCompleted">
+                <mat-datepicker-toggle matSuffix [for]="dateCompleted_picker4 "></mat-datepicker-toggle>
+                <mat-datepicker #dateCompleted_picker4></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="formField">
+            <mat-form-field appearance="outline">
+                <mat-label>Date Submited</mat-label>
+                <input matInput [matDatepicker]="datesubmited_picker5" formControlName="dateSumbitted" disabled>
+                <mat-datepicker-toggle matSuffix [for]="datesubmited_picker5"></mat-datepicker-toggle>
+                <mat-datepicker #datesubmited_picker5></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="formField">
+            <mat-form-field appearance="outline">
+                <mat-label>Date Approved</mat-label>
+                <input matInput [matDatepicker]="picker3" formControlName="dateApproved">
+                <mat-datepicker-toggle matSuffix [for]="picker3 "></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Functional Representative</mat-label>
+            <jhi-fr-field #frPicker1 formControlName="fr"></jhi-fr-field>
+            <button matSuffix mat-icon-button type="button" (click)="frPicker1.openFrSelectorDialog()">
+                <mat-icon style="color: #6c757d;">edit</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Human Resource Representative</mat-label>
+            <jhi-hr-field #hrPicker1 formControlName="hr"></jhi-hr-field>
+            <button matSuffix mat-icon-button type="button" (click)="hrPicker1.openHrSelectorDialog()">
+                <mat-icon style="color: #6c757d;">edit</mat-icon>
+            </button>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button type="submit" [disabled]="isSaving">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

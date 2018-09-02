@@ -1,0 +1,61 @@
+<h1>Update User</h1>
+
+<form [formGroup]="userFormGroup" (ngSubmit)="SaveUserForm()">
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Last name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="login">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>password</mat-label>
+      <input matInput formControlName="password">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>password</mat-label>
+      <input matInput formControlName="password2">
+      <mat-hint>repeat the same password</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-checkbox formControlName="adminAuthorization">Admin</mat-checkbox>
+    <mat-checkbox formControlName="humanResourcesAuthorization">Human Resources</mat-checkbox>
+    <mat-checkbox formControlName="functionalRepAuthorization">Functional Representative</mat-checkbox>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department">
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+    </mat-form-field>
+  </p>
+
+  <button mat-raised-button type="submit">Save</button>
+</form>

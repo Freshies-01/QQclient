@@ -1,0 +1,20 @@
+<mat-divider></mat-divider>
+<mat-list>
+    <h3 mat-subheader>Your TODO List</h3>
+    <mat-list-item class="flex-container" *ngFor="let action of actions">
+        <div>{{action.task}}</div>
+        <div>
+            <a mat-mini-fab [routerLink]="['/', { outlets: { popup: 'action/'+ action.id + '/delete'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge">-</a>
+        </div>
+    </mat-list-item>
+    <!-- <form (ngSubmit)="save()" [formGroup]="actionForm">
+        <mat-form-field>
+            <input matInput formControlName="task" placeholder="Add new item" name="task">
+        </mat-form-field>
+        <a mat-mini-fab type="submit">+</a>
+    </form> -->
+</mat-list>
+<mat-divider></mat-divider>
+<br/>

@@ -1,0 +1,11 @@
+<mat-form-field>
+    <input matInput id="search-box" matInput placeholder="Search By Name">
+</mat-form-field>
+
+<section class="results">
+    <ng-container *ngFor="let item of filteredFrReps">
+        <button class="employeeResult" mat-stroked-button type="button" (click)="onHrSelected(item)">{{item.employee.user.firstName}}
+            {{item.employee.user.lastName}}
+        </button>
+    </ng-container>
+</section>

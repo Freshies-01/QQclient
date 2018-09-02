@@ -1,0 +1,9 @@
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+mat-progress-spinner.status-progress {
+  color: #ebb529;
+}

@@ -1,0 +1,28 @@
+<a mat-raised-button [routerLink]="['./create']">
+    Create a new user
+</a>
+<br/>
+<br/>
+<div>
+    <div *ngFor="let emp of employees">
+        <mat-card>
+            <div class="flex-container">
+                <div>
+                    <mat-card-title>Name: {{emp.user?.firstName}} {{emp.user?.lastName}}</mat-card-title>
+                    <mat-card-subtitle>
+                        Department: {{emp.department?.name}}<br/>
+                        Location: {{emp.location?.city}}
+                    </mat-card-subtitle>
+                </div>
+                <div>
+                    <mat-card-actions>
+                        <a mat-raised-button [routerLink]="['/employee', emp.id, 'edit']">Edit</a>
+                        <a mat-raised-button [routerLink]="['/', { outlets: { popup: 'employee/'+ emp.id + '/delete'} }]" replaceUrl="true"
+                        queryParamsHandling="merge">Delete</a>
+                    </mat-card-actions>
+                </div>
+            </div> 
+        </mat-card>
+        <br/>
+    </div>
+</div>
