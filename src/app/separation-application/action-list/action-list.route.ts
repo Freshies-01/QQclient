@@ -5,13 +5,12 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { ActionDeletePopupComponent } from "../../../../entities/action/action-delete-dialog.component";
 import { IAction, Action } from "app/shared/model/action.model";
-import { ActionService } from "app/entities/action";
+import { ActionService } from "app/shared/Services/action.service";
 import { map } from "rxjs/operators";
 import { HttpResponse } from "@angular/common/http";
 import { of } from "rxjs";
-import { UserRouteAccessService } from "app/core";
+import { UserRouteAccessService } from "app/core/auth/user-route-access-service";
 
 @Injectable({ providedIn: "root" })
 export class ActionResolve implements Resolve<IAction> {
@@ -30,11 +29,6 @@ export class ActionResolve implements Resolve<IAction> {
 
 export const actionPopupRoute: Routes = [
   {
-    path: "action/:id/delete",
-    component: ActionDeletePopupComponent,
-    resolve: {
-      action: ActionResolve
-    },
     data: {
       authorities: [],
       pageTitle: "Actions"

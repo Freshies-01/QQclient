@@ -17,11 +17,6 @@ import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import * as moment from "moment";
 import { MatDialog, MatDialogRef } from "@angular/material";
-import {
-  DialogPickEmployeeComponent,
-  DialockPickEmployeeData
-} from "app/q_q/records/employee/dialog-pick-employee/dialog-pick-employee.component";
-
 @Component({
   selector: "app-separation-application-form",
   templateUrl: "./separation-application-form.component.html",
