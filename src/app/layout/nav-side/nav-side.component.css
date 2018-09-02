@@ -1,0 +1,104 @@
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: normal;
+  color: black;
+  transition: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.sidenav {
+  width: 250px;
+  position: fixed;
+  z-index: 3;
+  top: 40px;
+  bottom: 0;
+  left: 0px;
+  background-color: white;
+  overflow-x: hidden;
+  padding: 16px 0 0 0;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.sidenav.closed {
+  left: -250px;
+}
+
+ul.primary-nav-links {
+  padding: 4px 4px 4px 0;
+}
+
+ul.primary-nav-links a {
+  padding: 4px;
+  min-height: 32px;
+  margin: 8px 0 0 0;
+}
+
+ul.primary-nav-links > li > a.active {
+  background: #ebb529;
+}
+
+ul.primary-nav-links > li > a.active + ul {
+  max-height: 200px;
+}
+
+ul.secondary-nav-links {
+  margin: 0 0 0 8px;
+  border-left: 3px solid #ebb529;
+  max-height: 0;
+  overflow: hidden;
+  display: block;
+  transition: max-height 0.2s linear;
+}
+
+ul.secondary-nav-links a {
+  padding: 4px;
+  min-height: 24px;
+  margin: 4px 0 4px 4px;
+}
+
+ul.secondary-nav-links a.active {
+  font-weight: bolder;
+}
+
+.sidenav a:hover {
+  background-color: lightgray;
+  filter: brightness(85%);
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 20px;
+  margin-top: 48px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 14px;
+  }
+}
+
+.material-icons.navigation-icon {
+  font-size: 18px;
+  padding: 0 16px 0 0;
+}

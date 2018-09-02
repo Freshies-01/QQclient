@@ -1,22 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Ng2Webstorage } from "ngx-webstorage";
 
-import { AppComponent } from './app.component';
-import { QQuitCoreModule } from './core';
-import { LoginModule } from './login';
+import { QQuitCoreModule } from "./core";
+import { AppRoutingModule } from "./app-routing.module";
 
-import { Ng2Webstorage } from 'ngx-webstorage';
+import { SharedModule } from "app/shared/shared.module";
+import { BootstrapComponent } from "./bootstrap.component";
+import { LayoutModule } from "app/layout/layout.module";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [BootstrapComponent],
   imports: [
     BrowserModule,
     QQuitCoreModule,
-    LoginModule,
-    Ng2Webstorage.forRoot({ prefix: 'app', separator: '-' })
+    AppRoutingModule,
+    Ng2Webstorage.forRoot({ prefix: "app", separator: "-" }),
+    LayoutModule,
+    SharedModule,
+    BrowserAnimationsModule
   ],
   exports: [],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [BootstrapComponent]
 })
 export class AppModule {}
