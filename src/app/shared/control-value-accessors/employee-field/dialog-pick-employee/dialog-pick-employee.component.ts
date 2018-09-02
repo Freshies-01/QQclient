@@ -8,8 +8,8 @@ import {
 } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Employee } from "app/shared/model/employee.model";
-import { EmployeeService } from "app/entities/employee/employee.service";
-import { createRequestOption } from "app/shared/util/request-util";
+import { EmployeeService } from "app/shared/Services/employee.service";
+import { createRequestOption } from "app/shared/utilities/request-util";
 
 import { fromEvent, Subscription } from "rxjs";
 import { map, debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -19,7 +19,7 @@ export interface DialockPickEmployeeData {
 }
 
 @Component({
-  selector: "jhi-dialog-pick-employee",
+  selector: "app-dialog-pick-employee",
   templateUrl: "./dialog-pick-employee.component.html",
   styleUrls: ["./dialog-pick-employee.component.css"]
 })

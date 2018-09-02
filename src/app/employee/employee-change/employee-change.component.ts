@@ -5,7 +5,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { User } from "app/core";
 
 @Component({
-  selector: "jhi-employee-change",
+  selector: "app-employee-change",
   templateUrl: "./employee-change.component.html",
   styles: []
 })

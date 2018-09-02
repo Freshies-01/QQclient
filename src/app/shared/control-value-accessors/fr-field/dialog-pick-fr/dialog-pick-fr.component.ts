@@ -9,10 +9,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { HrReps } from "app/shared/model/hr-reps.model";
 import { FunctionReps } from "app/shared/model/function-reps.model";
-import { EmployeeService } from "app/entities/employee/employee.service";
-import { HrRepsService } from "app/entities/hr-reps/hr-reps.service";
-import { FunctionRepsService } from "app/entities/function-reps/function-reps.service";
-import { createRequestOption } from "app/shared/util/request-util";
+import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 
 import { fromEvent, Subscription } from "rxjs";
 import { map, debounceTime, distinctUntilChanged } from "rxjs/operators";
@@ -22,7 +19,7 @@ export interface DialockPickHrData {
 }
 
 @Component({
-  selector: "jhi-dialog-pick-fr",
+  selector: "app-dialog-pick-fr",
   templateUrl: "./dialog-pick-fr.component.html",
   styleUrls: ["./dialog-pick-fr.component.css"]
 })

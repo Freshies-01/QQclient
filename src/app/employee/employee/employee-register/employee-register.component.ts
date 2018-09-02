@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl } from "@angular/forms";
-import { Register } from "app/account/register/register.service";
-
-import { User } from "app/core";
+import { Register } from "app/core/auth/register.service";
 
 @Component({
-  selector: "jhi-employee-register",
+  selector: "app-employee-register",
   templateUrl: "./employee-register.component.html",
   styles: []
 })

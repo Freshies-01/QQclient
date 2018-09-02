@@ -7,6 +7,7 @@ import { NavigationLayoutComponent } from "app/layout/navigation-layout.componen
 
 import { UserRouteAccessService } from "app/core/auth/user-route-access-service";
 
+import { employeeRoutes } from "./employee/employee.route";
 const appRoutes: Routes = [
   {
     path: "login",
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
     component: NavigationLayoutComponent,
     canActivate: [UserRouteAccessService],
     data: { authorities: ["ROLE_ADMIN"] },
-    children: []
+    children: [...employeeRoutes]
   }
 ];
 

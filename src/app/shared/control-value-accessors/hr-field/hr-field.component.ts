@@ -24,13 +24,11 @@ import {
 
 import { Subject } from "rxjs";
 
-import { DialogPickEmployeeComponent } from "app/q_q/records/employee/dialog-pick-employee/dialog-pick-employee.component";
-import { Employee } from "app/shared/model/employee.model";
 import { HrReps } from "app/shared/model/hr-reps.model";
 import { DialogPickHrComponent } from "app/shared/control-value-accessors/hr-field/dialog-pick-hr/dialog-pick-hr.component";
 
 @Component({
-  selector: "jhi-hr-field",
+  selector: "app-hr-field",
   templateUrl: "./hr-field.component.html",
   styles: [],
   providers: [{ provide: MatFormFieldControl, useExisting: HrFieldComponent }]
@@ -41,19 +39,23 @@ export class HrFieldComponent
     ControlValueAccessor,
     MatFormFieldControl<HrReps>,
     OnDestroy {
-  @ViewChild("location") location: ElementRef;
+  static nextId = 0;
+  @ViewChild("location")
+  location: ElementRef;
   dialogReference: MatDialogRef<DialogPickHrComponent>;
   _hr: HrReps = null;
   private onChange;
   stateChanges = new Subject<void>();
-  static nextId = 0;
+
   readonly placeholder: string;
 
-  @HostBinding() id = `hr-field-input-${HrFieldComponent.nextId++}`;
+  @HostBinding()
+  id = `hr-field-input-${HrFieldComponent.nextId++}`;
 
   focused = false;
 
-  @Input() requestParameters: { filter?: String; locID?: String };
+  @Input()
+  requestParameters: { filter?: String; locID?: String };
 
   get value(): HrReps | null {
     return this._hr || null;
@@ -80,7 +82,8 @@ export class HrFieldComponent
     this._disabled = !!dis;
     this.stateChanges.next();
   }
-  @HostBinding("attr.aria-describedby") describedBy = "";
+  @HostBinding("attr.aria-describedby")
+  describedBy = "";
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(" ");
   }

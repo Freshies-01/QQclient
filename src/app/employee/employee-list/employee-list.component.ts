@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { IEmployee } from "app/shared/model/employee.model";
-import { EmployeeService } from "app/entities/employee/employee.service";
+import { EmployeeService } from "app/shared/Services/employee.service";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 
 @Component({
-  selector: "jhi-employee-list",
+  selector: "app-employee-list",
   templateUrl: "./employee-list.component.html",
   styles: ["./employee-list.component.css"]
 })

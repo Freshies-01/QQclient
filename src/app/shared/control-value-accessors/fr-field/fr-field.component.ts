@@ -24,14 +24,12 @@ import {
 
 import { Subject } from "rxjs";
 
-import { DialogPickEmployeeComponent } from "app/q_q/records/employee/dialog-pick-employee/dialog-pick-employee.component";
-import { Employee } from "app/shared/model/employee.model";
 import { FunctionReps } from "app/shared/model/function-reps.model";
 import { HrReps } from "app/shared/model/hr-reps.model";
 import { DialogPickFrComponent } from "./dialog-pick-fr/dialog-pick-fr.component";
 
 @Component({
-  selector: "jhi-fr-field",
+  selector: "app-fr-field",
   templateUrl: "./fr-field.component.html",
   styles: [],
   providers: [{ provide: MatFormFieldControl, useExisting: FrFieldComponent }]
@@ -42,19 +40,23 @@ export class FrFieldComponent
     ControlValueAccessor,
     MatFormFieldControl<FunctionReps>,
     OnDestroy {
-  @ViewChild("location") location: ElementRef;
+  static nextId = 0;
+  @ViewChild("location")
+  location: ElementRef;
   dialogReference: MatDialogRef<DialogPickFrComponent>;
   _fr: FunctionReps = null;
   private onChange;
   stateChanges = new Subject<void>();
-  static nextId = 0;
+
   readonly placeholder: string;
 
-  @HostBinding() id = `fr-field-input-${FrFieldComponent.nextId++}`;
+  @HostBinding()
+  id = `fr-field-input-${FrFieldComponent.nextId++}`;
 
   focused = false;
 
-  @Input() requestParameters: { filter?: String; locID?: String };
+  @Input()
+  requestParameters: { filter?: String; locID?: String };
 
   get value(): FunctionReps | null {
     return this._fr || null;
@@ -81,7 +83,8 @@ export class FrFieldComponent
     this._disabled = !!dis;
     this.stateChanges.next();
   }
-  @HostBinding("attr.aria-describedby") describedBy = "";
+  @HostBinding("attr.aria-describedby")
+  describedBy = "";
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(" ");
   }

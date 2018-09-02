@@ -24,11 +24,11 @@ import {
 
 import { Subject } from "rxjs";
 
-import { DialogPickEmployeeComponent } from "app/q_q/records/employee/dialog-pick-employee/dialog-pick-employee.component";
+import { DialogPickEmployeeComponent } from "./dialog-pick-employee/dialog-pick-employee.component";
 import { Employee } from "app/shared/model/employee.model";
 
 @Component({
-  selector: "jhi-employee-field",
+  selector: "app-employee-field",
   templateUrl: "./employee-field.component.html",
   styleUrls: ["./employee-field.component.css"],
   providers: [
@@ -41,16 +41,19 @@ export class EmployeeFieldComponent
     ControlValueAccessor,
     MatFormFieldControl<Employee>,
     OnDestroy {
-  @ViewChild("location") location: ElementRef;
+  static nextId = 0;
+  @ViewChild("location")
+  location: ElementRef;
   dialogReference: MatDialogRef<DialogPickEmployeeComponent>;
   employee: Employee = null;
   private onChange;
   stateChanges = new Subject<void>();
-  static nextId = 0;
   readonly placeholder: string;
-  @HostBinding() id = `employee-field-input-${EmployeeFieldComponent.nextId++}`;
+  @HostBinding()
+  id = `employee-field-input-${EmployeeFieldComponent.nextId++}`;
   focused = false;
-  @Input() requestParameters: { filter?: String; locID?: String };
+  @Input()
+  requestParameters: { filter?: String; locID?: String };
   get empty(): boolean {
     return !this.employee;
   }
@@ -77,7 +80,8 @@ export class EmployeeFieldComponent
     this.employee = value;
     this.stateChanges.next();
   }
-  @HostBinding("attr.aria-describedby") describedBy = "";
+  @HostBinding("attr.aria-describedby")
+  describedBy = "";
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(" ");
   }
