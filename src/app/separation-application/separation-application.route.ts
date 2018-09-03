@@ -56,5 +56,15 @@ export const separationApplicationRoute: Routes = [
     resolve: {
       separationApplication: QQSeparationApplicationResolve
     }
+  },
+  {
+    path: "separationApplication/:id/view",
+    component: SeparationApplicationFormComponent,
+    data: {
+      pageTitle: "View Separation Application"
+    },
+    resolve: {
+      separationApplication: QQSeparationApplicationResolve
+    }
   }
 ];
