@@ -1,16 +1,20 @@
-<h1>{{pageTitle}}</h1>
-<form [formGroup]="loginForm" (ngSubmit)="OnSubmitLoginForm()">
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input formControlName="username" placeholder="username" matInput>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input formControlName="password" matInput>
-    </mat-form-field>
-  </p>
-  <button mat-stroked-button>Sign In</button>
-</form>
+<div class="fullScreenFixedContainer">
+  <div class="centeredContainer">
+    <h1 style="color: #ebb529; font-weight: bolder; font-size: 48px;">Q_Quit</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="OnSubmitLoginForm()">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input formControlName="username" placeholder="username" matInput>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="password" formControlName="password" matInput>
+        </mat-form-field>
+      </p>
+      <button mat-stroked-button>Sign In</button>
+    </form>
+  </div>
+</div>
