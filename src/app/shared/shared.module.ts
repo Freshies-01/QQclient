@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HttpModule } from "@angular/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
 import { CookieModule } from "ngx-cookie";
 
@@ -18,10 +19,18 @@ import { ControlValueAccessorsModule } from "./control-value-accessors/control-v
     HttpModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    ControlValueAccessorsModule
+    ControlValueAccessorsModule,
+    RouterModule
   ],
   declarations: [LoginComponent, KeysPipe],
-  exports: [ControlValueAccessorsModule, KeysPipe],
+  exports: [
+    ControlValueAccessorsModule,
+    KeysPipe,
+    ReactiveFormsModule,
+    AngularMaterialModule,
+    CommonModule,
+    RouterModule
+  ],
   providers: []
 })
 export class SharedModule {}

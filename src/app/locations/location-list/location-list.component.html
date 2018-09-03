@@ -1,5 +1,6 @@
-<h1>location list</h1>
-
+<h1>Location list</h1>
 <div *ngFor="let location of locations">
   {{location.address}} {{location.city}} {{location.state}} {{location.country}}
+  <a [routerLink]="[location.id, 'view']">edit</a>
 </div>
+<a routerLink="new"><mat-icon class="buttonAnchor">add</mat-icon></a>

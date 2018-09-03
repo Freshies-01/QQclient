@@ -10,7 +10,7 @@ import { UserRouteAccessService } from "app/core/auth/user-route-access-service"
 import { employeeRoutes } from "./employee/employee.route";
 import { separationApplicationRoute } from "./separation-application/separation-application.route";
 import { dashboardRoutes } from "./dashboard/dashboard.module";
-import { locationRoutes } from "app/locations/locations.module";
+import { locationRoutes } from "app/locations/locations-routing.module";
 
 const appRoutes: Routes = [
   {
