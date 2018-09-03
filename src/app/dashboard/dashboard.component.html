@@ -1,0 +1,15 @@
+<mat-grid-list [cols]=2>
+  <mat-grid-tile *ngFor="let card of cards" [colspan]="card.inputs.cols.value" [rowspan]="card.inputs.rows.value">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title class="dashboard-card-title">
+          {{card.title}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <app-dashboard-card-spawner [card]="card">
+        </app-dashboard-card-spawner>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

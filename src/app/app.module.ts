@@ -12,6 +12,7 @@ import { LayoutModule } from "app/layout/layout.module";
 
 import { MyEmployeeModule } from "app/employee/employee.module";
 import { SeparationApplicationModule } from "app/separation-application/separation-application.module";
+import { DashboardModule } from "app/dashboard/dashboard.module";
 
 @NgModule({
   declarations: [BootstrapComponent],
@@ -24,7 +25,8 @@ import { SeparationApplicationModule } from "app/separation-application/separati
     SharedModule,
     BrowserAnimationsModule,
     MyEmployeeModule,
-    SeparationApplicationModule
+    SeparationApplicationModule,
+    DashboardModule
   ],
   exports: [],
   providers: [],

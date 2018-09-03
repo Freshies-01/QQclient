@@ -9,6 +9,7 @@ import { UserRouteAccessService } from "app/core/auth/user-route-access-service"
 
 import { employeeRoutes } from "./employee/employee.route";
 import { separationApplicationRoute } from "./separation-application/separation-application.route";
+import { dashboardRoutes } from "./dashboard/dashboard.module";
 
 const appRoutes: Routes = [
   {
@@ -23,7 +24,11 @@ const appRoutes: Routes = [
     component: NavigationLayoutComponent,
     canActivate: [UserRouteAccessService],
     data: { authorities: ["ROLE_ADMIN"] },
-    children: [...employeeRoutes, ...separationApplicationRoute]
+    children: [
+      ...employeeRoutes,
+      ...separationApplicationRoute,
+      ...dashboardRoutes
+    ]
   }
 ];
 
