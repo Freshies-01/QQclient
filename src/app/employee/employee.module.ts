@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { EmployeeListComponent } from "./employee-list/employee-list.component";
 import { EmployeeChangeComponent } from "./employee-change/employee-change.component";
 import { AngularMaterialModule } from "app/shared/angular-material.module";
-import { EmployeeRegisterComponent } from "./employee-register/employee-register.component";
+import { EmployeeRegisterComponent } from "app/employee/employee-register/employee-register.component";
 
 @NgModule({
   imports: [

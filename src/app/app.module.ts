@@ -10,6 +10,9 @@ import { SharedModule } from "app/shared/shared.module";
 import { BootstrapComponent } from "./bootstrap.component";
 import { LayoutModule } from "app/layout/layout.module";
 
+import { MyEmployeeModule } from "app/employee/employee.module";
+import { SeparationApplicationModule } from "app/separation-application/separation-application.module";
+
 @NgModule({
   declarations: [BootstrapComponent],
   imports: [
@@ -19,7 +22,9 @@ import { LayoutModule } from "app/layout/layout.module";
     Ng2Webstorage.forRoot({ prefix: "app", separator: "-" }),
     LayoutModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MyEmployeeModule,
+    SeparationApplicationModule
   ],
   exports: [],
   providers: [],

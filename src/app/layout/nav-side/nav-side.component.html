@@ -1,37 +1,37 @@
 <div id="mySidenav" class="sidenav">
-    <h1 style="text-align: center; color: #ebb529; font-weight: bolder;">Q_Quit</h1>
-    <hr>
-    <ul class="primary-nav-links">
+  <h1 style="text-align: center; color: #ebb529; font-weight: bolder;">Q_Quit</h1>
+  <hr>
+  <ul class="primary-nav-links">
+    <li>
+      <a class="primary" routerLink="dashboard" routerLinkActive="active">
+        <i class="material-icons navigation-icon">dashboard</i>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a class="primary">
+        <i class="material-icons navigation-icon">bar_chart</i>
+        Reports
+      </a>
+    </li>
+    <li>
+      <a class="primary" routerLinkActive="active" routerLink="record">
+        <i class="material-icons navigation-icon">description</i>
+        Records
+        <i class="material-icons">expand_more</i>
+      </a>
+      <ul class="secondary-nav-links">
         <li>
-            <a class="primary" routerLink="dashboard" routerLinkActive="active">
-                <i class="material-icons navigation-icon">dashboard</i>
-                Dashboard
-            </a>
+          <a class="secondary" routerLinkActive="active" routerLink="/employee">
+            Employees
+          </a>
         </li>
         <li>
-            <a class="primary" routerLink="report" routerLinkActive="active">
-                <i class="material-icons navigation-icon">bar_chart</i>
-                Reports
-            </a>
+          <a class="secondary" routerLinkActive="active" routerLink="/separationApplication">
+            Separation Applications
+          </a>
         </li>
-        <li>
-            <a class="primary" routerLinkActive="active" routerLink="record">
-                <i class="material-icons navigation-icon">description</i>
-                Records
-                <i class="material-icons">expand_more</i>
-            </a>
-            <ul class="secondary-nav-links">
-                <li>
-                    <a class="secondary" routerLinkActive="active" routerLink="record/employee">
-                        Employees
-                    </a>
-                </li>
-                <li>
-                    <a class="secondary" routerLinkActive="active" routerLink="record/separationApplication">
-                        Separation Applications
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+      </ul>
+    </li>
+  </ul>
 </div>

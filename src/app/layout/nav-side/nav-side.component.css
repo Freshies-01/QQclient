@@ -54,7 +54,6 @@ ul.primary-nav-links > li > a.active + ul {
 ul.secondary-nav-links {
   margin: 0 0 0 8px;
   border-left: 3px solid #ebb529;
-  max-height: 0;
   overflow: hidden;
   display: block;
   transition: max-height 0.2s linear;
