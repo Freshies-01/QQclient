@@ -33,30 +33,40 @@
                     </p>
                 </div>
             </div>
-            <div class="list-item">
-                <button class="icon" mat-mini-fab (click)="confirmDelete(action.id)">X</button> <!--FR and HR ONLY-->
+            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR']">
+              <div class="list-item">
+                  <button class="icon" mat-mini-fab (click)="confirmDelete(action.id)">X</button> <!--FR and HR ONLY-->
+              </div>
             </div>
-            <div *ngIf="action.actionStatus != 'DISPUTED' && action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee ONLY-->
-                <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
+            <div *appHasAnyAuthority="'ROLE_USER'">
+              <div *ngIf="action.actionStatus != 'DISPUTED' && action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee ONLY-->
+                  <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
+              </div>
             </div>
-            <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--FR ONLY-->
-                <button class="icon" (click)="openDialog(action)" mat-mini-fab>Edit</button>
+            <div *appHasAnyAuthority="'ROLE_FUNCTION'">
+              <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--FR ONLY-->
+                  <button class="icon" (click)="openDialog(action)" mat-mini-fab>Edit</button>
+              </div>
             </div>
-            <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee and HR ONLY-->
-                <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
+            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_HR']">
+              <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee and HR ONLY-->
+                  <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
+              </div>
             </div>
             <br/>
         </div>
         <br/>
     </mat-list-item>
     <br/>
-    <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
-        <mat-form-field>
-            <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
-        </mat-form-field>
-        <button class="icon" mat-mini-fab type="submit">+</button>
-        <br/>
-    </form>
+    <div *appHasAnyAuthority="'ROLE_FUNCTION'">
+      <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
+          <mat-form-field>
+              <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
+          </mat-form-field>
+          <button class="icon" mat-mini-fab type="submit">+</button>
+          <br/>
+      </form>
+    </div>
 </mat-list>
 <br/>
 <mat-divider></mat-divider>
