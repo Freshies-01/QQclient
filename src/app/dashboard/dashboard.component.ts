@@ -4,7 +4,7 @@ import { DashboardCard } from "./dashboardCards/dashboardCard";
 import { PendingApplicationCardComponent } from "./dashboardCards/pending-application-card/pending-application-card.component";
 import { ClosedApplicationCardComponent } from "./dashboardCards/closed-application-card/closed-application-card.component";
 @Component({
-  selector: "jhi-dashboard",
+  selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.css"],
   entryComponents: [
@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.cards.length = 0;
     this.generateCard(
       "Pending Applications",
       "./dashboardCards/pending-application-card",
