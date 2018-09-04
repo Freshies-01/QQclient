@@ -1,0 +1,14 @@
+<h1>Update User</h1>
+
+<form [formGroup]="departmentChangeForm" (ngSubmit)="onSubmit()">
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Department" formControlName="name">
+        <mat-option *ngFor="let department of departmentOptions | keys" [value]="department.value">
+          {{department.key}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <button mat-raised-button type="submit">Save</button>
+</form>

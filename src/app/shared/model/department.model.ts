@@ -1,11 +1,11 @@
 import { IEmployee } from "app/shared/model/employee.model";
 
-export const enum DepartmentCodes {
+export enum DepartmentCodes {
   IT = "IT",
-  EXEC = "EXEC",
-  LGL = "LGL",
-  FINAC = "FINAC",
-  DEV = "DEV",
+  Executive = "EXEC",
+  Legal = "LGL",
+  Financial = "FINAC",
+  Development = "DEV",
   HR = "HR"
 }
 

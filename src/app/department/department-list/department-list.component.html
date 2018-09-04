@@ -1,0 +1,22 @@
+<div class="actionBar">
+  <h1>Location Records
+    <a class="addRecordButton" mat-mini-fab [routerLink]="['../new']">
+      <mat-icon>add</mat-icon>
+    </a>
+  </h1>
+</div>
+<div>
+  <div *ngFor="let department of PoolOfDepartments">
+    <mat-card>
+      <mat-card-title>
+        <a class="editButton" mat-mini-fab><mat-icon>edit</mat-icon></a>
+      </mat-card-title>
+      <mat-card-content>
+        <p>
+          <span>{{department.name}}</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <br/>
+  </div>
+</div>

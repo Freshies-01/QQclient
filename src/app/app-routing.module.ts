@@ -11,6 +11,7 @@ import { employeeRoutes } from "./employee/employee.route";
 import { separationApplicationRoute } from "./separation-application/separation-application.route";
 import { dashboardRoutes } from "./dashboard/dashboard.module";
 import { locationRoutes } from "app/locations/locations-routing.module";
+import { departmentRoutes } from "app/department/department.route";
 
 const appRoutes: Routes = [
   {
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
       ...employeeRoutes,
       ...separationApplicationRoute,
       ...dashboardRoutes,
-      ...locationRoutes
+      ...locationRoutes,
+      ...departmentRoutes
     ]
   }
 ];

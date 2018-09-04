@@ -14,6 +14,7 @@ import { MyEmployeeModule } from "app/employee/employee.module";
 import { SeparationApplicationModule } from "app/separation-application/separation-application.module";
 import { DashboardModule } from "app/dashboard/dashboard.module";
 import { LocationsModule } from "./locations/locations.module";
+import { DepartmentModule } from "app/department/department.module";
 
 @NgModule({
   declarations: [BootstrapComponent],
@@ -28,7 +29,8 @@ import { LocationsModule } from "./locations/locations.module";
     MyEmployeeModule,
     SeparationApplicationModule,
     DashboardModule,
-    LocationsModule
+    LocationsModule,
+    DepartmentModule
   ],
   exports: [],
   providers: [],
