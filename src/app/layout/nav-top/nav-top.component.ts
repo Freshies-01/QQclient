@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 import { Principal } from "app/core";
 
-import { AuthServerProvider } from "app/core/auth/auth-jwt.service";
+import { LoginService } from "app/core/auth/login.service";
 
 @Component({
   selector: "app-nav-top",
@@ -17,14 +17,13 @@ export class NavTopComponent {
   constructor(
     private principal: Principal,
     private router: Router,
-    private authProvider: AuthServerProvider
+    private loginService: LoginService
   ) {}
 
   signOut() {
-    this.authProvider.logout().subscribe(null, null, () => {
-      console.log("signOut navigated");
-      this.router.navigate(["login"]);
-    });
+    this.loginService.logout();
+    console.log("signOut navigated");
+    this.router.navigate(["login"]);
   }
 
   isAuthenticated(): Boolean {
