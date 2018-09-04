@@ -53,4 +53,17 @@ export class LocationChangeComponent implements OnInit {
       .update(this.createLocationForm.getRawValue())
       .subscribe(() => this.router.navigate(["location"]));
   }
+
+  deleteLocation() {
+    this.locationService
+      .delete(this.createLocationForm.get("id").value)
+      .subscribe(
+        null,
+        () =>
+          alert(
+            "could not delete this location, there might be records that depend on it"
+          ),
+        () => this.router.navigate(["location"])
+      );
+  }
 }
