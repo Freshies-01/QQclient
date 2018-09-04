@@ -14,6 +14,7 @@ import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 // import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { ExportToCsv } from 'export-to-csv';
 
 export interface ActionData {
   action: IAction;

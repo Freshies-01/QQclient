@@ -33,22 +33,22 @@
                     </p>
                 </div>
             </div>
-            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR']">
+            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR', 'ROLE_ADMIN']">
               <div class="list-item">
                   <button class="icon" mat-mini-fab (click)="confirmDelete(action.id)">X</button> <!--FR and HR ONLY-->
               </div>
             </div>
-            <div *appHasAnyAuthority="'ROLE_USER'">
+            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']">
               <div *ngIf="action.actionStatus != 'DISPUTED' && action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee ONLY-->
                   <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
               </div>
             </div>
-            <div *appHasAnyAuthority="'ROLE_FUNCTION'">
+            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_ADMIN']">
               <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--FR ONLY-->
                   <button class="icon" (click)="openDialog(action)" mat-mini-fab>Edit</button>
               </div>
             </div>
-            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_HR']">
+            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_HR', 'ROLE_ADMIN']">
               <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee and HR ONLY-->
                   <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
               </div>
@@ -58,7 +58,7 @@
         <br/>
     </mat-list-item>
     <br/>
-    <div *appHasAnyAuthority="'ROLE_FUNCTION'">
+    <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_ADMIN']">
       <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
           <mat-form-field>
               <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
