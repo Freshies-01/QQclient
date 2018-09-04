@@ -9,9 +9,10 @@ import { IAction, ActionStatus } from "app/shared/model/action.model";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { ActionService } from "app/shared/Services/action.service";
 import { Observable } from "rxjs";
-import { ReactiveFormsModule, FormGroup, FormControl } from "@angular/forms";
+import { FormsModule, FormGroup, FormControl } from "@angular/forms";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
+// import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 export interface ActionData {
@@ -46,6 +47,7 @@ export class ActionListComponent implements OnInit {
     private separationApplicationService: SeparationApplicationService,
     private actionService: ActionService,
     private functionRepsService: FunctionRepsService,
+    // private eventManager: JhiEventManager,
     public dialog: MatDialog
   ) {}
 
@@ -123,6 +125,10 @@ export class ActionListComponent implements OnInit {
 
   confirmDelete(id: number) {
     this.actionService.delete(id).subscribe(response => {
+      // this.eventManager.broadcast({
+      //   name: "actionListModification",
+      //   content: "Deleted an action"
+      // });
       this.loadActions();
     });
   }

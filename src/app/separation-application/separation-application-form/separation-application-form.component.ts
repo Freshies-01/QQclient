@@ -25,8 +25,6 @@ import { MatDialog, MatDialogRef } from "@angular/material";
 export class SeparationApplicationFormComponent implements OnInit {
   statusOptions = SeparationApplicationStatus;
 
-  // app form group is mimicing the structure of JSON that API generates.
-  // conversion functions This way we can acoid writing lengthy.
   public appForm = new FormGroup({
     id: new FormControl(null),
     status: new FormControl(null),

@@ -13,6 +13,7 @@ import { LayoutModule } from "app/layout/layout.module";
 import { MyEmployeeModule } from "app/employee/employee.module";
 import { SeparationApplicationModule } from "app/separation-application/separation-application.module";
 import { DashboardModule } from "app/dashboard/dashboard.module";
+import { LocationsModule } from "./locations/locations.module";
 
 @NgModule({
   declarations: [BootstrapComponent],
@@ -26,7 +27,8 @@ import { DashboardModule } from "app/dashboard/dashboard.module";
     BrowserAnimationsModule,
     MyEmployeeModule,
     SeparationApplicationModule,
-    DashboardModule
+    DashboardModule,
+    LocationsModule
   ],
   exports: [],
   providers: [],
