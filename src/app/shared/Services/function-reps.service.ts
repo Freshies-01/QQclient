@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IFunctionReps[]>;
 @Injectable({ providedIn: "root" })
 export class FunctionRepsService {
   private resourceUrl = SERVER_API_URL + "api/function-reps";
+  private currentFunctionRepUrl = SERVER_API_URL + "api/current-function-reps";
 
   constructor(private http: HttpClient) {}
 
@@ -29,6 +30,12 @@ export class FunctionRepsService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IFunctionReps>(`${this.resourceUrl}/${id}`, {
+      observe: "response"
+    });
+  }
+
+  findCurrentFunctionRep(): Observable<EntityResponseType> {
+    return this.http.get<IFunctionReps>(this.currentFunctionRepUrl, {
       observe: "response"
     });
   }

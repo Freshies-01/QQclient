@@ -8,7 +8,7 @@ import { ActionListComponent } from "./action-list/action-list.component";
 
 import { AngularMaterialModule } from "app/shared/angular-material.module";
 import { SharedModule } from "app/shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     AngularMaterialModule,
     RouterModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     SeparationApplicationListComponent,

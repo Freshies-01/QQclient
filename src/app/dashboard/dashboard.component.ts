@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+
   generateCard(_name: string, _routerLink: string, cardType: any) {
     this.cardsService.addCard(
       new DashboardCard(
