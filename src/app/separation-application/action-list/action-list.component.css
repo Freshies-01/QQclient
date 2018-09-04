@@ -3,3 +3,12 @@
   justify-content: space-around;
   align-content: center;
 }
+
+.icon {
+  font-size: 20px;
+}
+
+.list-item {
+  padding: 15px;
+  padding-bottom: 60px;
+}
