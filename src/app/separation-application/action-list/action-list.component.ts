@@ -144,8 +144,8 @@ export class ActionListComponent implements OnInit {
 
   openDialog(action: IAction): void {
     const dialogRef = this.dialog.open(ActionEditPopupComponent, {
-      width: "250px",
-      height: "600px",
+      width: "400px",
+      height: "200px",
       data: { editedAction: action }
     });
   }
