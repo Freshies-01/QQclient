@@ -14,7 +14,7 @@ export const enum State {
 }
 
 export const enum Country {
-  USA = "USA"
+  USA = "United"
 }
 
 export interface ILocation {
