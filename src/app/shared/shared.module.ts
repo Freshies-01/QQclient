@@ -11,6 +11,7 @@ import { LoginComponent } from "./login-component/login.component";
 
 import { KeysPipe } from "./utilities/EnumKeyPipe/enum-key.pipe";
 import { ControlValueAccessorsModule } from "./control-value-accessors/control-value-accessors.module";
+import { HasAnyAuthorityDirective } from "./auth/has-any-authority.directive";
 
 @NgModule({
   imports: [
@@ -22,14 +23,15 @@ import { ControlValueAccessorsModule } from "./control-value-accessors/control-v
     ControlValueAccessorsModule,
     RouterModule
   ],
-  declarations: [LoginComponent, KeysPipe],
+  declarations: [LoginComponent, KeysPipe, HasAnyAuthorityDirective],
   exports: [
     ControlValueAccessorsModule,
     KeysPipe,
     ReactiveFormsModule,
     AngularMaterialModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    HasAnyAuthorityDirective
   ],
   providers: []
 })
