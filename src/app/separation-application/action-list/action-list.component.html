@@ -10,28 +10,28 @@
             </div>
             <div class="list-item" [ngSwitch]="action.actionStatus">
                 <div *ngSwitchCase="'DISPUTED'" style="color: red;">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}<br/>
+                  <p>
+                    {{action.task}}
+                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchCase="'EDITED'">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}<br/>
+                  <p>
+                    {{action.task}}
+                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchCase="'ACCEPTED'" style="font-weight: bold;">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
+                  <p>
+                    {{action.task}}
                     Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchDefault>
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    <p>
+                      {{action.task}}
+                      Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    </p>
                 </div>
             </div>
             <div class="list-item">
@@ -41,16 +41,17 @@
             <div class="list-item"> <!--Employee ONLY-->
                 <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
             </div>
-            <div class="list-item" (click)="openDialog(action)"> <!--FR ONLY-->
-                <button class="icon" mat-mini-fab>Edit</button>
+            <div class="list-item"> <!--FR ONLY-->
+                <button class="icon" (click)="openDialog(action)" mat-mini-fab>Edit</button>
             </div>
-            <div class="list-item"> <!--Employee ONLY, + HR if numDisputes > 2-->
+            <div class="list-item"> <!--Employee and HR ONLY-->
                 <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
             </div>
             <br/>
         </div>
         <br/>
     </mat-list-item>
+    <br/>
     <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
         <mat-form-field>
             <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
