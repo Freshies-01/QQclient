@@ -14,7 +14,7 @@ import {
 import { SharedModule } from "app/shared/shared.module";
 import { LocationChangeComponent } from "./location-change/location-change.component";
 import { LocationService } from "app/shared/Services/location.service";
-import { ILocation } from "app/shared/model/location.model";
+import { ILocation, Location } from "app/shared/model/location.model";
 
 @Injectable({ providedIn: "root" })
 export class LocationResolver implements Resolve<ILocation> {
