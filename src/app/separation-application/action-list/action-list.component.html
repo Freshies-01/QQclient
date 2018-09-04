@@ -6,7 +6,7 @@
         <div class="flex-container">
 
             <div class="list-item">
-                <mat-checkbox [(ngModel)]="action.isCompleted" (click)="toggleCompleted(action)"></mat-checkbox> <!--Applicant Employee ONLY-->
+                <!-- <mat-checkbox [(ngModel)]="action.isCompleted" (click)="toggleCompleted(action)"></mat-checkbox> Applicant Employee ONLY -->
             </div>
             <div class="list-item" [ngSwitch]="action.actionStatus">
                 <div *ngSwitchCase="'DISPUTED'" style="color: red;">
