@@ -63,7 +63,6 @@
         <mat-icon style="color: #6c757d;">edit</mat-icon>
       </button>
     </mat-form-field>
-    <jhi-action-list [saId]="appForm.get('id').value"></jhi-action-list>
     <div>
       <button mat-raised-button type="submit">
         Save
@@ -72,4 +71,4 @@
   </form>
 </div>
 <h1>Actions</h1>
-<jhi-action-list></jhi-action-list>
+<jhi-action-list [saId]="appForm.get('id').value"></jhi-action-list>
