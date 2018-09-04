@@ -1,5 +1,18 @@
-.flex-container {
+.actionBar {
+  margin-bottom: 16px;
+  height: 48px;
+}
+
+.editButton {
+  float: right;
+}
+
+.addRecordButton {
+  float: right;
+}
+
+.flexContainer {
+  padding-right: 36px;
   display: flex;
-  justify-content: space-around;
-  align-content: center;
+  justify-content: space-between;
 }

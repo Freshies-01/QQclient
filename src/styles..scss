@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+//////////////// ANGULAR MATERIAL OVERIDES AND EXTENSIONS
+.mat-card-actions {
+  margin-bottom: 0 !important ;
+}
+
+.mat-card-actions > * {
+  margin: 0 16px 0 16px !important;
+}
+/////////////////////////////////////////
+
 body {
   margin: 0;
 }
