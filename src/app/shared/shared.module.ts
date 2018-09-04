@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HttpModule } from "@angular/http";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { CookieModule } from "ngx-cookie";
@@ -20,6 +20,7 @@ import { HasAnyAuthorityDirective } from "./auth/has-any-authority.directive";
     HttpModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    FormsModule,
     ControlValueAccessorsModule,
     RouterModule
   ],
@@ -31,7 +32,8 @@ import { HasAnyAuthorityDirective } from "./auth/has-any-authority.directive";
     AngularMaterialModule,
     CommonModule,
     RouterModule,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    FormsModule
   ],
   providers: []
 })
