@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     path: "",
     component: NavigationLayoutComponent,
     canActivate: [UserRouteAccessService],
-    // data: { authorities: ["ROLE_ADMIN"] },
+    data: { authorities: [] },
     children: [
       ...employeeRoutes,
       ...separationApplicationRoute,

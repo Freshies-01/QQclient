@@ -39,10 +39,6 @@ export class ActionListComponent implements OnInit {
     task: new FormControl("")
   });
 
-  public actionEditForm = new FormGroup({
-    task: new FormControl("")
-  });
-
   constructor(
     private separationApplicationService: SeparationApplicationService,
     private actionService: ActionService,
@@ -140,13 +136,20 @@ export class ActionListComponent implements OnInit {
     // disable dispute button
     action.numDisputes++;
     action.actionStatus = ActionStatus.DISPUTED;
+    this.updateAction(action);
   }
 
   openDialog(action: IAction): void {
     const dialogRef = this.dialog.open(ActionEditPopupComponent, {
-      width: "250px",
-      height: "600px",
-      data: { editedAction: action }
+      width: "400px",
+      height: "300px",
+      data: { editAction: action }
+    });
+
+    dialogRef.afterClosed().subscribe(editAction => {
+      action.task = editAction.task;
+      action.actionStatus = ActionStatus.EDITED;
+      this.updateAction(action);
     });
   }
 
@@ -154,7 +157,7 @@ export class ActionListComponent implements OnInit {
     // set action.task to form value
     // change action.task text color to normal
     // reenable dispute button
-    const editAction: IAction = this.actionEditForm.getRawValue();
+    const editAction: IAction = this.actionForm.getRawValue();
     if (editAction.task === "" || null || action.task) {
       return;
     }
@@ -182,16 +185,31 @@ export class ActionListComponent implements OnInit {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: "jhi-action-edit-popup",
+  template: 'passed in {{data.editAction}}',
   templateUrl: "action-edit-popup.html",
   providers: [SeparationApplicationService]
 })
 export class ActionEditPopupComponent {
+
+  public actionEditForm = new FormGroup({
+    task: new FormControl("")
+  });
+
   constructor(
     public dialogRef: MatDialogRef<ActionEditPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ActionData
+    @Inject(MAT_DIALOG_DATA) public data: IAction
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  close(): void {
+    const editAction: IAction = this.actionEditForm.getRawValue();
+    if (editAction.task === "" || null) {
+      return;
+    }
+    // console.log(action.id);
+    this.dialogRef.close(editAction);
   }
 }
