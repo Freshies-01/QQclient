@@ -17,7 +17,7 @@ export class SeparationApplicationLogComponent implements OnInit {
   currentAccount: any;
   eventSubscriber: Subscription;
   saId: number;
-  displayedColumns: string[] = ['id', 'dateEdited', 'employee', 'separationApplication', 'editType'];
+  displayedColumns: string[] = ['dateEdited', 'employee', 'separationApplication', 'editType'];
 
   constructor(
     private separationApplicationLogService: SeparationApplicationLogService,
