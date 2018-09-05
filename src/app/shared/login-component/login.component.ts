@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { SessionStorageService } from "ngx-webstorage";
 
 import { AuthServerProvider } from "app/core";
+import { LoginService } from "app/core/auth/login.service";
 
 @Component({
   selector: "app-login",
@@ -19,10 +20,10 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private authServerProvider: AuthServerProvider,
     private sessionStorage: SessionStorageService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   OnSubmitLoginForm() {
     const data = this.loginForm.getRawValue();
-    this.authServerProvider.login(data).subscribe(result => {
+    this.loginService.login(data).then(result => {
       this.navigateToNextPage();
     });
   }

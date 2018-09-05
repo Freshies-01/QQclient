@@ -12,8 +12,11 @@ import { Observable } from "rxjs";
 import { FormsModule, FormGroup, FormControl } from "@angular/forms";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
+import { SeparationApplicationLogService } from "app/shared/Services/separation-application-log.service";
 // import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import * as Moment from "moment";
+import { EditType, ISeparationApplicationLog } from "../../shared/model/separation-application-log.model";
 
 export interface ActionData {
   action: IAction;
@@ -39,14 +42,11 @@ export class ActionListComponent implements OnInit {
     task: new FormControl("")
   });
 
-  public actionEditForm = new FormGroup({
-    task: new FormControl("")
-  });
-
   constructor(
     private separationApplicationService: SeparationApplicationService,
     private actionService: ActionService,
     private functionRepsService: FunctionRepsService,
+    private logService: SeparationApplicationLogService,
     // private eventManager: JhiEventManager,
     public dialog: MatDialog
   ) {}
@@ -101,12 +101,25 @@ export class ActionListComponent implements OnInit {
   updateAction(action: IAction) {
     if (action.id !== undefined) {
       this.subscribeToSaveResponse(this.actionService.update(action));
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+      ));
     } else {
       this.subscribeToSaveResponse(this.actionService.create(action));
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+      ));
     }
   }
 
   private subscribeToSaveResponse(result: Observable<HttpResponse<IAction>>) {
+    result.subscribe(
+      (res: HttpResponse<IAction>) => this.onSaveSuccess(),
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
+  }
+
+  private subscribeToSaveResponseMeh(result: Observable<HttpResponse<ISeparationApplicationLog>>) {
     result.subscribe(
       (res: HttpResponse<IAction>) => this.onSaveSuccess(),
       (res: HttpErrorResponse) => this.onSaveError()
@@ -123,14 +136,17 @@ export class ActionListComponent implements OnInit {
     this.loadActions();
   }
 
-  confirmDelete(id: number) {
-    this.actionService.delete(id).subscribe(response => {
+  confirmDelete(action: IAction) {
+    this.actionService.delete(action.id).subscribe(response => {
       // this.eventManager.broadcast({
       //   name: "actionListModification",
       //   content: "Deleted an action"
       // });
       this.loadActions();
     });
+    this.subscribeToSaveResponseMeh(this.logService.addToLog(
+      Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.DELETE
+    ));
   }
 
   dispute(action: IAction) {
@@ -140,13 +156,20 @@ export class ActionListComponent implements OnInit {
     // disable dispute button
     action.numDisputes++;
     action.actionStatus = ActionStatus.DISPUTED;
+    this.updateAction(action);
   }
 
   openDialog(action: IAction): void {
     const dialogRef = this.dialog.open(ActionEditPopupComponent, {
-      width: "250px",
-      height: "600px",
-      data: { editedAction: action }
+      width: "400px",
+      height: "300px",
+      data: { editAction: action }
+    });
+
+    dialogRef.afterClosed().subscribe(editAction => {
+      action.task = editAction.task;
+      action.actionStatus = ActionStatus.EDITED;
+      this.updateAction(action);
     });
   }
 
@@ -154,7 +177,7 @@ export class ActionListComponent implements OnInit {
     // set action.task to form value
     // change action.task text color to normal
     // reenable dispute button
-    const editAction: IAction = this.actionEditForm.getRawValue();
+    const editAction: IAction = this.actionForm.getRawValue();
     if (editAction.task === "" || null || action.task) {
       return;
     }
@@ -182,16 +205,31 @@ export class ActionListComponent implements OnInit {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: "jhi-action-edit-popup",
+  template: 'passed in {{data.task}}',
   templateUrl: "action-edit-popup.html",
   providers: [SeparationApplicationService]
 })
 export class ActionEditPopupComponent {
+
+  public actionEditForm = new FormGroup({
+    task: new FormControl("")
+  });
+
   constructor(
     public dialogRef: MatDialogRef<ActionEditPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ActionData
+    @Inject(MAT_DIALOG_DATA) public data: IAction
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  close(): void {
+    const editAction: IAction = this.actionEditForm.getRawValue();
+    if (editAction.task === "" || null) {
+      return;
+    }
+    // console.log(action.id);
+    this.dialogRef.close(editAction);
   }
 }

@@ -27,7 +27,7 @@
           </mat-card-subtitle>
         </div>
         <div style="justify-content: center">
-          <mat-progress-spinner class="status-progress" [mode]="mode" [value]="value"></mat-progress-spinner><br/>
+          <mat-progress-spinner class="status-progress" mode="determinate" [value]="value"></mat-progress-spinner><br/>
           <mat-card-subtitle>Status: {{app.status}}</mat-card-subtitle>
           <a [routerLink]="['/separationApplication', app.id, 'view' ]">
             <button mat-raised-button>

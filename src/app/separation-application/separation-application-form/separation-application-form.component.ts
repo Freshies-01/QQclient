@@ -13,6 +13,7 @@ import { EmployeeService } from "app/shared/Services/employee.service";
 import { IHrReps } from "app/shared/model/hr-reps.model";
 import { HrRepsService } from "app/shared/Services/hr-reps.service";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
+// add import for SeparationApplicationLogService
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import * as moment from "moment";
@@ -44,6 +45,7 @@ export class SeparationApplicationFormComponent implements OnInit {
     private functionRepsService: FunctionRepsService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog
+    // private logService: SeparationApplicationLogService
   ) {}
 
   ngOnInit() {
@@ -85,10 +87,12 @@ export class SeparationApplicationFormComponent implements OnInit {
     if (sa.id) {
       this.subscribeToSaveResponse(
         this.separationApplicationService.update(sa)
+        // logService.create, editType is UPDATE
       );
     } else {
       this.subscribeToSaveResponse(
         this.separationApplicationService.create(sa)
+        // logService.create, editType is CREATE
       );
     }
   }
