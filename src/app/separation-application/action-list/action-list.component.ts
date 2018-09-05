@@ -186,7 +186,7 @@ export class ActionListComponent implements OnInit {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: "jhi-action-edit-popup",
-  template: 'passed in {{data.editAction}}',
+  template: 'passed in {{data.task}}',
   templateUrl: "action-edit-popup.html",
   providers: [SeparationApplicationService]
 })

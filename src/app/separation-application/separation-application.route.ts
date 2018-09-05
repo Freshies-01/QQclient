@@ -8,6 +8,7 @@ import {
 import { HttpResponse } from "@angular/common/http";
 import { SeparationApplicationListComponent } from "./separation-application-list/separation-application-list.component";
 import { SeparationApplicationFormComponent } from "./separation-application-form/separation-application-form.component";
+import { SeparationApplicationLogComponent} from "./separation-application-log/separation-application-log.component";
 import { of } from "rxjs";
 import { map } from "rxjs/operators";
 import { SeparationApplicationService } from "app/shared/Services/separation-application.service";
@@ -62,6 +63,16 @@ export const separationApplicationRoute: Routes = [
     component: SeparationApplicationFormComponent,
     data: {
       pageTitle: "View Separation Application"
+    },
+    resolve: {
+      separationApplication: QQSeparationApplicationResolve
+    }
+  },
+  {
+    path: "separationApplication/:id/view/log",
+    component: SeparationApplicationLogComponent,
+    data: {
+      pageTitle: "Separation Application Activity Log"
     },
     resolve: {
       separationApplication: QQSeparationApplicationResolve
