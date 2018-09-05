@@ -19,10 +19,9 @@ export class ApplicationReportCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadClosed();
   }
 
-  loadClosed() {
+  load() {
     this.separationApplicationService.query().subscribe(
       (res: HttpResponse<ISeparationApplication[]>) => {
         this.separationApplications = res.body;
@@ -31,6 +30,7 @@ export class ApplicationReportCardComponent implements OnInit {
     );
   }
   csvGen() {
+    this.load();
     if (this.separationApplications === null) { return; }
     const options = {
       fieldSeparator: ',',

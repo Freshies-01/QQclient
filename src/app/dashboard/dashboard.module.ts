@@ -15,6 +15,7 @@ import { ClosedApplicationCardComponent } from "./dashboardCards/closed-applicat
 import { ApplicationReportCardComponent } from "app/dashboard/dashboardCards/application-report-card/application-report-card.component";
 import { DisputedApplicationCardComponent } from "./dashboardCards/disputed-application-card/disputed-application-card.component";
 import { DashboardCardsService } from "./dashboardCardsService";
+import { FunctionWiseDurationCardComponent } from './dashboardCards/function-wise-duration-card/function-wise-duration-card.component';
 
 export const dashboardRoutes: Routes = [
   {
@@ -38,7 +39,8 @@ export const dashboardRoutes: Routes = [
     PendingApplicationCardComponent,
     ClosedApplicationCardComponent,
     DisputedApplicationCardComponent,
-    ApplicationReportCardComponent
+    ApplicationReportCardComponent,
+    FunctionWiseDurationCardComponent
   ],
   exports: [DashboardComponent],
   providers: [DashboardCardsService]

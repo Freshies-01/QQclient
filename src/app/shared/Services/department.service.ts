@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { SERVER_API_URL } from "app/app.constants";
 import { createRequestOption } from "app/shared/utilities/request-util";
 import { IDepartment } from "app/shared/model/department.model";
+import { Duration, duration } from "../../../../node_modules/moment";
 
 type EntityResponseType = HttpResponse<IDepartment>;
 type EntityArrayResponseType = HttpResponse<IDepartment[]>;
@@ -40,7 +41,6 @@ export class DepartmentService {
       observe: "response"
     });
   }
-
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
       observe: "response"
