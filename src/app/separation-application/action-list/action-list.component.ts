@@ -12,9 +12,11 @@ import { Observable } from "rxjs";
 import { FormsModule, FormGroup, FormControl } from "@angular/forms";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
+import { SeparationApplicationLogService } from "app/shared/Services/separation-application-log.service";
 // import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { ExportToCsv } from 'export-to-csv';
+import * as Moment from "moment";
+import { EditType, ISeparationApplicationLog } from "../../shared/model/separation-application-log.model";
 
 export interface ActionData {
   action: IAction;
@@ -44,6 +46,7 @@ export class ActionListComponent implements OnInit {
     private separationApplicationService: SeparationApplicationService,
     private actionService: ActionService,
     private functionRepsService: FunctionRepsService,
+    private logService: SeparationApplicationLogService,
     // private eventManager: JhiEventManager,
     public dialog: MatDialog
   ) {}
@@ -98,12 +101,25 @@ export class ActionListComponent implements OnInit {
   updateAction(action: IAction) {
     if (action.id !== undefined) {
       this.subscribeToSaveResponse(this.actionService.update(action));
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+      ));
     } else {
       this.subscribeToSaveResponse(this.actionService.create(action));
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+      ));
     }
   }
 
   private subscribeToSaveResponse(result: Observable<HttpResponse<IAction>>) {
+    result.subscribe(
+      (res: HttpResponse<IAction>) => this.onSaveSuccess(),
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
+  }
+
+  private subscribeToSaveResponseMeh(result: Observable<HttpResponse<ISeparationApplicationLog>>) {
     result.subscribe(
       (res: HttpResponse<IAction>) => this.onSaveSuccess(),
       (res: HttpErrorResponse) => this.onSaveError()
@@ -120,14 +136,17 @@ export class ActionListComponent implements OnInit {
     this.loadActions();
   }
 
-  confirmDelete(id: number) {
-    this.actionService.delete(id).subscribe(response => {
+  confirmDelete(action: IAction) {
+    this.actionService.delete(action.id).subscribe(response => {
       // this.eventManager.broadcast({
       //   name: "actionListModification",
       //   content: "Deleted an action"
       // });
       this.loadActions();
     });
+    this.subscribeToSaveResponseMeh(this.logService.addToLog(
+      Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.DELETE
+    ));
   }
 
   dispute(action: IAction) {
@@ -186,7 +205,7 @@ export class ActionListComponent implements OnInit {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: "jhi-action-edit-popup",
-  template: 'passed in {{data.editAction}}',
+  template: 'passed in {{data.task}}',
   templateUrl: "action-edit-popup.html",
   providers: [SeparationApplicationService]
 })

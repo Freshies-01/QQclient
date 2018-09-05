@@ -35,7 +35,7 @@
             </div>
             <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR', 'ROLE_ADMIN']">
               <div class="list-item">
-                  <button class="icon" mat-mini-fab (click)="confirmDelete(action.id)">X</button> <!--FR and HR ONLY-->
+                  <button class="icon" mat-mini-fab (click)="confirmDelete(action)">X</button> <!--FR and HR ONLY-->
               </div>
             </div>
             <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']">
