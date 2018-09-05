@@ -7,11 +7,7 @@ import { HttpErrorResponse, HttpResponse } from '../../../../../node_modules/@an
 
 @Component({
   selector: 'app-function-wise-duration-card',
-  template: `
-    <p>
-      function-wise-duration-card works!
-    </p>
-  `,
+  templateUrl: "./function-wise-duration-card.component.html",
   styles: []
 })
 export class FunctionWiseDurationCardComponent implements OnInit {
@@ -34,7 +30,6 @@ export class FunctionWiseDurationCardComponent implements OnInit {
 
   csvGen() {
     this.load();
-    if (this.departments === null) { return; }
     const options = {
       fieldSeparator: ',',
       quoteStrings: '"',
@@ -45,17 +40,20 @@ export class FunctionWiseDurationCardComponent implements OnInit {
       useBom: true,
       useKeysAsHeaders: true,
     };
-    const csvExporter = new ExportToCsv(options);
-    for(let index = 0; index < this.departments.length; ++index) {
-      const dept = this.departments[index];
-      this.actionService.functionWise(dept.id).subscribe(
-        (res: HttpResponse<String>) => {
-          this.duration = res.body;
-        },
-        (res: HttpErrorResponse) => console.log(res.message)
-      );   
-      this.data.push({ID: dept.id, Name: dept.name, AvgDuration: this.duration});
+    if (this.departments != null && this.departments.length > 0) {
+      const csvExporter = new ExportToCsv(options);
+      for (let index = 0; index < this.departments.length; ++index) {
+        const dept = this.departments[index];
+        this.actionService.functionWise(dept.id).subscribe(
+          (res: HttpResponse<String>) => {
+            this.duration = res.body;
+          },
+          (res: HttpErrorResponse) => console.log(res.message)
+        );
+        this.data.push({ID: dept.id, Name: dept.name, AvgDuration: this.duration});
+        console.log(this.data[index]);
+      }
+      csvExporter.generateCsv(this.data);
     }
   }
-
 }

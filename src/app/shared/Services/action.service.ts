@@ -89,7 +89,6 @@ export class ActionService {
       .get<IAction[]>(`${this.resourceUrl}-dept/${deptID}`, {
         observe: "response"
       })
-      
       .pipe(
         map((res: EntityArrayResponseType) =>
           this.convertDateArrayFromServer(res)

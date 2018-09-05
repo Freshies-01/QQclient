@@ -43,14 +43,16 @@ export class ApplicationReportCardComponent implements OnInit {
       useKeysAsHeaders: true,
     };
   const csvExporter = new ExportToCsv(options);
-  for (let i = 0; i < this.separationApplications.length; i++) {
-    const sa = this.separationApplications[i];
-    this.data.push({ID: sa.id, Status: sa.status, User: sa.employee.user.firstName + " " + sa.employee.user.lastName,
-                  HR: sa.hr.employee.user.firstName + " " + sa.hr.employee.user.lastName,
-                  FR: sa.fr.employee.user.firstName + " " + sa.fr.employee.user.lastName,
-                  DateSubmitted: sa.dateSumbitted.toDate(), DateApproved: sa.dateApproved.toDate(),
-                  DateCompleted: sa.dateCompleted.toDate(), DateOfLeave: sa.dateOfLeave.toDate()});
-  }
-  csvExporter.generateCsv(this.data);
+  if (this.separationApplications != null && this.separationApplications.length > 0) {
+    for (let i = 0; i < this.separationApplications.length; i++) {
+      const sa = this.separationApplications[i];
+      this.data.push({ID: sa.id, Status: sa.status, User: sa.employee.user.firstName + " " + sa.employee.user.lastName,
+                    HR: sa.hr.employee.user.firstName + " " + sa.hr.employee.user.lastName,
+                    FR: sa.fr.employee.user.firstName + " " + sa.fr.employee.user.lastName,
+                    DateSubmitted: sa.dateSumbitted.toDate(), DateApproved: sa.dateApproved.toDate(),
+                    DateCompleted: sa.dateCompleted.toDate(), DateOfLeave: sa.dateOfLeave.toDate()});
+      }
+    csvExporter.generateCsv(this.data);
+    }
   }
 }
