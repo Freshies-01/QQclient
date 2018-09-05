@@ -7,7 +7,9 @@ import { map } from "rxjs/operators";
 
 import { SERVER_API_URL } from "app/app.constants";
 import { createRequestOption } from "app/shared/utilities/request-util";
-import { ISeparationApplicationLog } from "app/shared/model/separation-application-log.model";
+import { ISeparationApplicationLog, EditType, SeparationApplicationLog } from "app/shared/model/separation-application-log.model";
+import { ISeparationApplication } from "../model/separation-application.model";
+import { IUser } from "app/core/user/user.model";
 
 type EntityResponseType = HttpResponse<ISeparationApplicationLog>;
 type EntityArrayResponseType = HttpResponse<ISeparationApplicationLog[]>;
@@ -16,6 +18,7 @@ type EntityArrayResponseType = HttpResponse<ISeparationApplicationLog[]>;
 export class SeparationApplicationLogService {
   private resourceUrl = SERVER_API_URL + "api/separation-application-logs";
   private logsUrl = SERVER_API_URL + "api/logs";
+  private log: ISeparationApplicationLog = new SeparationApplicationLog();
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +26,22 @@ export class SeparationApplicationLogService {
     separationApplicationLog: ISeparationApplicationLog
   ): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(separationApplicationLog);
+    return this.http
+      .post<ISeparationApplicationLog>(this.resourceUrl, copy, {
+        observe: "response"
+      })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  addToLog(
+    dateEdited: moment.Moment, employee: IUser, separationAppliction: ISeparationApplication, editType: EditType
+  ): Observable<EntityResponseType> {
+    this.log.dateEdited = dateEdited;
+    this.log.employee = employee;
+    this.log.separationApplication = separationAppliction;
+    this.log.editType = editType;
+    const copy = this.convertDateFromClient(this.log);
+
     return this.http
       .post<ISeparationApplicationLog>(this.resourceUrl, copy, {
         observe: "response"

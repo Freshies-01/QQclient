@@ -43,11 +43,12 @@ export class SeparationApplicationLogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(routeData => {
-      if (routeData.separationApplication.id) {
-        this.loadLogsById(routeData.separationApplication.id);
-      }
-    });
+    // this.activatedRoute.data.subscribe(routeData => {
+    //   if (routeData.separationApplication.id) {
+    //     this.loadLogsById(routeData.separationApplication.id);
+    //   }
+    // });
+    this.loadAll();
   }
 
   trackId(index: number, item: ISeparationApplicationLog) {
