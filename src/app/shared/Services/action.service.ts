@@ -97,9 +97,9 @@ export class ActionService {
       );
   }
 
-  functionWise(deptID: number): Observable<HttpResponse<Duration>> {
+  functionWise(deptID: number): Observable<HttpResponse<String>> {
     return this.http.
-    get<Duration>(`${this.resourceUrl}-functionWise/${deptID}`, {observe: "response"});
+    get<String>(`${this.resourceUrl}-functionWise/${deptID}`, {observe: "response"});
   }
 
   private convertDateFromServer(res: EntityResponseType): EntityResponseType {

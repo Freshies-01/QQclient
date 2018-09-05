@@ -1,8 +1,8 @@
 import { ExportToCsv } from 'export-to-csv';
 import { Component, OnInit } from '@angular/core';
 import { IDepartment, DepartmentCodes } from '../../../shared/model/department.model';
-import { Duration } from '../../../../../node_modules/moment';
 import { DepartmentService } from '../../../shared/Services/department.service';
+import { ActionService } from '../../../shared/Services/action.service';
 import { HttpErrorResponse, HttpResponse } from '../../../../../node_modules/@angular/common/http';
 
 @Component({
@@ -17,9 +17,9 @@ import { HttpErrorResponse, HttpResponse } from '../../../../../node_modules/@an
 export class FunctionWiseDurationCardComponent implements OnInit {
 
   departments: IDepartment[];
-  data: {ID: number, Name: DepartmentCodes, AvgDuration: Duration}[] = [];
-  constructor(private departmentService: DepartmentService) { }
-
+  data: {ID: number, Name: DepartmentCodes, AvgDuration: String}[] = [];
+  constructor(private actionService: ActionService, private departmentService: DepartmentService) {}
+  duration: String;
   ngOnInit() {
   }
 
@@ -48,7 +48,13 @@ export class FunctionWiseDurationCardComponent implements OnInit {
     const csvExporter = new ExportToCsv(options);
     for(let index = 0; index < this.departments.length; ++index) {
       const dept = this.departments[index];
-      this.data.push({ID: dept.id, Name: dept.name, AvgDuration: this.departmentService.functionWise(dept.id)});
+      this.actionService.functionWise(dept.id).subscribe(
+        (res: HttpResponse<String>) => {
+          this.duration = res.body;
+        },
+        (res: HttpErrorResponse) => console.log(res.message)
+      );   
+      this.data.push({ID: dept.id, Name: dept.name, AvgDuration: this.duration});
     }
   }
 
