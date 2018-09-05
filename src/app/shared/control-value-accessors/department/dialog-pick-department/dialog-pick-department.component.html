@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input matInput id="search-box" matInput placeholder="Search By Name">
+</mat-form-field>
+
+<section class="results">
+  <ng-container *ngFor="let item of filteredDepartments">
+    <button class="employeeResult" mat-stroked-button type="button" (click)="onEmployeeSelected(item)">
+      {{item.name}}
+    </button>
+  </ng-container>
+</section>

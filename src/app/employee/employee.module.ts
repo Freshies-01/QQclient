@@ -5,16 +5,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { EmployeeListComponent } from "./employee-list/employee-list.component";
 import { EmployeeChangeComponent } from "./employee-change/employee-change.component";
-import { AngularMaterialModule } from "app/shared/angular-material.module";
+import { SharedModule } from "app/shared/shared.module";
 import { EmployeeRegisterComponent } from "app/employee/employee-register/employee-register.component";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    AngularMaterialModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, RouterModule, SharedModule, ReactiveFormsModule],
   declarations: [
     EmployeeListComponent,
     EmployeeChangeComponent,

@@ -60,7 +60,6 @@ export class EmployeeFieldComponent
   get value(): Employee | null {
     return this.employee || null;
   }
-
   get shouldLabelFloat(): boolean {
     return !this.empty;
   }
@@ -85,6 +84,7 @@ export class EmployeeFieldComponent
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(" ");
   }
+
   onContainerClick(event: MouseEvent) {
     // // FOLLOWING IS A GOOD IMPLEMENTATION FOR MAKING SURE THAT THE CORRECT THING IN CUSTOM ELEMENT GETS FOCUSED WHEN CLICKED
     // if ((event.target as Element).tagName.toLowerCase() !== "input") {
