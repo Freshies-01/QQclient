@@ -4,6 +4,7 @@ import { IDepartment, DepartmentCodes } from '../../../shared/model/department.m
 import { DepartmentService } from '../../../shared/Services/department.service';
 import { ActionService } from '../../../shared/Services/action.service';
 import { HttpErrorResponse, HttpResponse } from '../../../../../node_modules/@angular/common/http';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-function-wise-duration-card',
@@ -15,7 +16,7 @@ export class FunctionWiseDurationCardComponent implements OnInit {
   departments: IDepartment[];
   data: {ID: number, Name: DepartmentCodes, AvgDuration: String}[] = [];
   constructor(private actionService: ActionService, private departmentService: DepartmentService) {}
-  duration: String;
+  duration: String = "";
   ngOnInit() {
   }
 
@@ -23,6 +24,7 @@ export class FunctionWiseDurationCardComponent implements OnInit {
     this.departmentService.query().subscribe(
       (res: HttpResponse<IDepartment[]>) => {
         this.departments = res.body;
+        this.csvGenHidden();
       },
       (res: HttpErrorResponse) => console.log(res.message)
     );
@@ -30,6 +32,9 @@ export class FunctionWiseDurationCardComponent implements OnInit {
 
   csvGen() {
     this.load();
+  }
+
+  async csvGenHidden() {
     const options = {
       fieldSeparator: ',',
       quoteStrings: '"',
@@ -42,18 +47,26 @@ export class FunctionWiseDurationCardComponent implements OnInit {
     };
     if (this.departments != null && this.departments.length > 0) {
       const csvExporter = new ExportToCsv(options);
+      let dept = this.departments[0];
       for (let index = 0; index < this.departments.length; ++index) {
-        const dept = this.departments[index];
-        this.actionService.functionWise(dept.id).subscribe(
-          (res: HttpResponse<String>) => {
-            this.duration = res.body;
-          },
-          (res: HttpErrorResponse) => console.log(res.message)
-        );
+        dept = this.departments[index];
+        await this.getFunctionWisePromise(dept.id).then((result) => {
+        this.duration = result;
+      });
         this.data.push({ID: dept.id, Name: dept.name, AvgDuration: this.duration});
-        console.log(this.data[index]);
       }
       csvExporter.generateCsv(this.data);
     }
+  }
+  async getFunctionWisePromise(deptId: number): Promise<string> {
+    try {
+      const str = await this.actionService.functionWise(deptId).toPromise();
+
+      console.log("Promise Body: " + str.body.toString());
+      return str.body.duration;
+    } catch (error) {
+      console.log(error.message);
+    }
+    finally {}
   }
 }
