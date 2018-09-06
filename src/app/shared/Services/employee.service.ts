@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IEmployee[]>;
 @Injectable({ providedIn: "root" })
 export class EmployeeService {
   private resourceUrl = SERVER_API_URL + "api/employees";
+  private currentUrl = SERVER_API_URL + "api/current-employee";
 
   constructor(private http: HttpClient) {}
 
@@ -29,6 +30,12 @@ export class EmployeeService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IEmployee>(`${this.resourceUrl}/${id}`, {
+      observe: "response"
+    });
+  }
+
+  findCurrent(): Observable<EntityResponseType> {
+    return this.http.get<IEmployee>(this.currentUrl, {
       observe: "response"
     });
   }

@@ -10,6 +10,7 @@ import { createRequestOption } from "app/shared/utilities/request-util";
 import { ISeparationApplicationLog, EditType, SeparationApplicationLog } from "app/shared/model/separation-application-log.model";
 import { ISeparationApplication } from "../model/separation-application.model";
 import { IUser } from "app/core/user/user.model";
+import { IEmployee } from "../model/employee.model";
 
 type EntityResponseType = HttpResponse<ISeparationApplicationLog>;
 type EntityArrayResponseType = HttpResponse<ISeparationApplicationLog[]>;
@@ -34,7 +35,7 @@ export class SeparationApplicationLogService {
   }
 
   addToLog(
-    dateEdited: moment.Moment, employee: IUser, separationAppliction: ISeparationApplication, editType: EditType
+    dateEdited: moment.Moment, employee: IEmployee, separationAppliction: ISeparationApplication, editType: EditType
   ): Observable<EntityResponseType> {
     this.log.dateEdited = dateEdited;
     this.log.employee = employee;

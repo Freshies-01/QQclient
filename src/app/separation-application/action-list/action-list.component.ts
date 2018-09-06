@@ -12,11 +12,13 @@ import { Observable } from "rxjs";
 import { FormsModule, FormGroup, FormControl } from "@angular/forms";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
+import { EmployeeService } from "app/shared/Services/employee.service";
 import { SeparationApplicationLogService } from "app/shared/Services/separation-application-log.service";
 // import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import * as Moment from "moment";
 import { EditType, ISeparationApplicationLog } from "../../shared/model/separation-application-log.model";
+import { IEmployee } from "app/shared/model/employee.model";
 
 export interface ActionData {
   action: IAction;
@@ -36,6 +38,7 @@ export class ActionListComponent implements OnInit {
   @Input() saId: number;
   isSaving: boolean;
   separationApplication: ISeparationApplication;
+  currentEmployee: IEmployee;
 
   public actionForm = new FormGroup({
     id: new FormControl(""),
@@ -47,9 +50,20 @@ export class ActionListComponent implements OnInit {
     private actionService: ActionService,
     private functionRepsService: FunctionRepsService,
     private logService: SeparationApplicationLogService,
+    private employeeService: EmployeeService,
     // private eventManager: JhiEventManager,
     public dialog: MatDialog
   ) {}
+
+  loadCurrentEmployee() {
+    this.employeeService.findCurrent().subscribe(
+      (res: HttpResponse<IEmployee>) => {
+        this.currentEmployee = res.body;
+        console.log(this.currentEmployee);
+      },
+      (res: HttpErrorResponse) => console.log(res.message)
+    );
+  }
 
   loadActions() {
     this.separationApplicationService.queryActions(this.saId).subscribe(
@@ -102,12 +116,12 @@ export class ActionListComponent implements OnInit {
     if (action.id !== undefined) {
       this.subscribeToSaveResponse(this.actionService.update(action));
       this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.UPDATE
       ));
     } else {
       this.subscribeToSaveResponse(this.actionService.create(action));
       this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.UPDATE
       ));
     }
   }
@@ -145,7 +159,7 @@ export class ActionListComponent implements OnInit {
       this.loadActions();
     });
     this.subscribeToSaveResponseMeh(this.logService.addToLog(
-      Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.DELETE
+      Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.DELETE
     ));
   }
 
@@ -196,6 +210,7 @@ export class ActionListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadCurrentEmployee();
     this.loadActions();
     this.loadFr();
     this.getApp();
