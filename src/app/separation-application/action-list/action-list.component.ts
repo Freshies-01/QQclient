@@ -19,6 +19,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import * as Moment from "moment";
 import { EditType, ISeparationApplicationLog } from "../../shared/model/separation-application-log.model";
 import { IEmployee } from "app/shared/model/employee.model";
+import * as FileSaver from 'file-saver';
 
 export interface ActionData {
   action: IAction;
@@ -196,19 +197,16 @@ export class ActionListComponent implements OnInit {
   }
 
   print() {
-    let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Final Checklist</title>
-        </head>
-        <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
-    popupWin.document.close();
+    let list: string;
+    for (const action of this.actions) {
+      if (action.actionStatus === 'ACCEPTED') {
+        list += "<p style=\"font-weight: bold;\">" + action.task + "</p>";
+      } else {
+        list += "<p>" + action.task + "</p>";
+      }
+    }
+
+    FileSaver.saveAs(new Blob([list], {}), "test.html");
   }
 
   ngOnInit() {
