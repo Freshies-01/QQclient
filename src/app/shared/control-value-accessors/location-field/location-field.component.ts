@@ -24,41 +24,43 @@ import {
 
 import { Subject } from "rxjs";
 
-import { DialogPickEmployeeComponent } from "./dialog-pick-employee/dialog-pick-employee.component";
-import { Employee } from "app/shared/model/employee.model";
+import { DialogPickLocationComponent } from "./dialog-pick-location/dialog-pick-location.component";
+import { Location } from "app/shared/model/location.model";
 
 @Component({
-  selector: "app-employee-field",
-  templateUrl: "./employee-field.component.html",
-  styleUrls: ["./employee-field.component.css"],
+  selector: "app-location-field",
+  templateUrl: "./location-field.component.html",
+  styleUrls: ["./location-field.component.css"],
   providers: [
-    { provide: MatFormFieldControl, useExisting: EmployeeFieldComponent }
+    { provide: MatFormFieldControl, useExisting: LocationFieldComponent }
   ]
 })
-export class EmployeeFieldComponent
+export class LocationFieldComponent
   implements
     OnInit,
     ControlValueAccessor,
-    MatFormFieldControl<Employee>,
+    MatFormFieldControl<Location>,
     OnDestroy {
   static nextId = 0;
   @ViewChild("location")
-  location: ElementRef;
-  dialogReference: MatDialogRef<DialogPickEmployeeComponent>;
-  employee: Employee = null;
+  locationElement: ElementRef;
+  dialogReference: MatDialogRef<DialogPickLocationComponent>;
+  location: Location = null;
   private onChange;
   stateChanges = new Subject<void>();
   readonly placeholder: string;
   @HostBinding()
-  id = `employee-field-input-${EmployeeFieldComponent.nextId++}`;
+  id = `employee-field-input-${LocationFieldComponent.nextId++}`;
   focused = false;
-  @Input()
-  requestParameters: { filter?: String; locID?: String };
   get empty(): boolean {
-    return !this.employee;
+    return !this.location;
   }
-  get value(): Employee | null {
-    return this.employee || null;
+  get value(): Location | null {
+    return this.location || null;
+  }
+  set value(value: Location | null) {
+    this.location = value;
+    this.stateChanges.next();
   }
   get shouldLabelFloat(): boolean {
     return !this.empty;
@@ -66,17 +68,13 @@ export class EmployeeFieldComponent
   readonly required = false;
   private _disabled = false;
   readonly errorState = false;
-  readonly controlType = "employee-field-component";
+  readonly controlType = "location-field-component";
   @Input()
   get disabled() {
     return this._disabled;
   }
   set disabled(dis) {
     this._disabled = !!dis;
-    this.stateChanges.next();
-  }
-  set value(value: Employee | null) {
-    this.employee = value;
     this.stateChanges.next();
   }
   @HostBinding("attr.aria-describedby")
@@ -93,7 +91,6 @@ export class EmployeeFieldComponent
   }
 
   constructor(
-    private renderer: Renderer2,
     private dialog: MatDialog,
     @Optional()
     @Self()
@@ -111,7 +108,7 @@ export class EmployeeFieldComponent
   }
 
   writeValue(obj: any): void {
-    this.employee = obj;
+    this.location = obj;
   }
 
   registerOnChange(fn: (_: any) => void): void {
@@ -123,15 +120,16 @@ export class EmployeeFieldComponent
   setDisabledState?(isDisabled: boolean): void;
 
   openEmployeeSelectorDialog() {
-    this.dialogReference = this.dialog.open(DialogPickEmployeeComponent, {
-      data: { requestParameters: this.requestParameters },
+    this.dialogReference = this.dialog.open(DialogPickLocationComponent, {
+      data: {},
       width: "370px",
       minHeight: "530px"
     } as MatDialogConfig);
-    this.dialogReference.beforeClose().subscribe(pickedEmployee => {
-      if (pickedEmployee) {
-        this.employee = pickedEmployee;
-        this.onChange(this.employee);
+    this.dialogReference.beforeClose().subscribe(pickedLocation => {
+      if (pickedLocation) {
+        console.log(pickedLocation);
+        this.location = pickedLocation;
+        this.onChange(this.location);
       }
     });
   }

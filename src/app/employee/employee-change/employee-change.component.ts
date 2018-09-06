@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl } from "@angular/forms";
 
+import { DepartmentCodes } from "app/shared/model/department.model";
+
 import { User } from "app/core";
 
 @Component({
@@ -11,6 +13,7 @@ import { User } from "app/core";
 })
 export class EmployeeChangeComponent implements OnInit {
   DebugFormRawValue; // DEBUG field
+
   public userFormGroup = new FormGroup({
     login: new FormControl(""),
     firstName: new FormControl(""),

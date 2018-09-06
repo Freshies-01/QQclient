@@ -70,10 +70,12 @@
     </div>
   </form>
 </div>
-<h1>Actions</h1>
-<jhi-action-list [saId]="appForm.get('id').value"></jhi-action-list>
-<a [routerLink]="['/separationApplication', appForm.get('id').value, 'view', 'log' ]">
-  <button mat-raised-button>
-    Activity Log
-  </button>
-</a>
+<div *ngIf="appForm.get('id').value">
+  <h1>Actions</h1>
+  <jhi-action-list [saId]="appForm.get('id').value"></jhi-action-list>
+  <a [routerLink]="['/separationApplication', appForm.get('id').value, 'view', 'log' ]">
+    <button mat-raised-button>
+      Activity Log
+    </button>
+  </a>
+</div>

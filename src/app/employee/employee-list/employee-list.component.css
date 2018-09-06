@@ -7,10 +7,6 @@
   float: right;
 }
 
-.addRecordButton {
-  float: right;
-}
-
 .flexContainer {
   padding-right: 36px;
   display: flex;

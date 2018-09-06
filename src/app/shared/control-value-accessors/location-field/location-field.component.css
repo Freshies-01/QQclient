@@ -1,0 +1,16 @@
+/* Setting margin to counteract angular forms padidng which assumes only text in the component */
+/* .employeePickerDialog {
+  margin: -16px 0;
+  float: right;
+  white-space: nowrap;
+  color: #6c757d;
+} */
+
+.nameSpan {
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+/* .emptyContentFix {
+  min-height: 18px;
+} */

@@ -46,14 +46,19 @@
   <p>
     <mat-form-field appearance="outline">
       <mat-label>Department</mat-label>
-      <input matInput formControlName="department">
+      <app-department-field #departmentPicker1 formControlName="department"></app-department-field>
+      <button matSuffix mat-icon-button type="button" (click)="departmentPicker1.openDepartmentSelectorDialog()">
+        <mat-icon style="color: #6c757d;">edit</mat-icon>
+      </button>
     </mat-form-field>
   </p>
-
   <p>
     <mat-form-field appearance="outline">
       <mat-label>Location</mat-label>
-      <input matInput formControlName="location">
+      <app-location-field #locationPicker1 formControlName="location"></app-location-field>
+      <button matSuffix mat-icon-button type="button" (click)="locationPicker1.openEmployeeSelectorDialog()">
+        <mat-icon style="color: #6c757d;">edit</mat-icon>
+      </button>
     </mat-form-field>
   </p>
 

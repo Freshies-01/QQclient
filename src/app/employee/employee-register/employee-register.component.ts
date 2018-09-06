@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl } from "@angular/forms";
+import { MatDialog } from "@angular/material";
+
 import { Register } from "app/core/auth/register.service";
 
 import { User } from "app/core";
+// tslint:disable-next-line:max-line-length
+import { DialogPickDepartmentComponent } from "app/shared/control-value-accessors/department/dialog-pick-department/dialog-pick-department.component";
 
 @Component({
   selector: "app-employee-register",
@@ -25,7 +29,10 @@ export class EmployeeRegisterComponent implements OnInit {
     functionalRepAuthorization: new FormControl(false)
   });
 
-  constructor(private registerService: Register) {}
+  constructor(
+    private registerService: Register,
+    private dialogService: MatDialog
+  ) {}
 
   CreateUserFromUserFormGroup() {
     const user = {
