@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 import { SERVER_API_URL } from "app/app.constants";
 import { createRequestOption } from "app/shared/utilities/request-util";
 import { IAction } from "app/shared/model/action.model";
+import { Duration } from "moment";
 
 type EntityResponseType = HttpResponse<IAction>;
 type EntityArrayResponseType = HttpResponse<IAction[]>;
@@ -94,6 +95,12 @@ export class ActionService {
         )
       );
   }
+
+  functionWise(deptID: number): Observable<HttpResponse<any>> {
+    return this.http.
+    get<any>(`${this.resourceUrl}-functionWise/${deptID}`, {observe: "response" });
+  }
+
   private convertDateFromServer(res: EntityResponseType): EntityResponseType {
     res.body.dateCompleted =
       res.body.dateCompleted != null ? moment(res.body.dateCompleted) : null;
