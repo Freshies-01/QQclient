@@ -12,11 +12,13 @@ import { Observable } from "rxjs";
 import { FormsModule, FormGroup, FormControl } from "@angular/forms";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
+import { EmployeeService } from "app/shared/Services/employee.service";
 import { SeparationApplicationLogService } from "app/shared/Services/separation-application-log.service";
 // import { JhiEventManager } from "ng-jhipster";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import * as Moment from "moment";
 import { EditType, ISeparationApplicationLog } from "../../shared/model/separation-application-log.model";
+import { IEmployee } from "app/shared/model/employee.model";
 
 export interface ActionData {
   action: IAction;
@@ -36,6 +38,7 @@ export class ActionListComponent implements OnInit {
   @Input() saId: number;
   isSaving: boolean;
   separationApplication: ISeparationApplication;
+  currentEmployee: IEmployee;
 
   public actionForm = new FormGroup({
     id: new FormControl(""),
@@ -47,9 +50,20 @@ export class ActionListComponent implements OnInit {
     private actionService: ActionService,
     private functionRepsService: FunctionRepsService,
     private logService: SeparationApplicationLogService,
+    private employeeService: EmployeeService,
     // private eventManager: JhiEventManager,
     public dialog: MatDialog
   ) {}
+
+  loadCurrentEmployee() {
+    this.employeeService.findCurrent().subscribe(
+      (res: HttpResponse<IEmployee>) => {
+        this.currentEmployee = res.body;
+        console.log(this.currentEmployee);
+      },
+      (res: HttpErrorResponse) => console.log(res.message)
+    );
+  }
 
   loadActions() {
     this.separationApplicationService.queryActions(this.saId).subscribe(
@@ -102,12 +116,12 @@ export class ActionListComponent implements OnInit {
     if (action.id !== undefined) {
       this.subscribeToSaveResponse(this.actionService.update(action));
       this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.UPDATE
       ));
     } else {
       this.subscribeToSaveResponse(this.actionService.create(action));
       this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.UPDATE
+        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.CREATE
       ));
     }
   }
@@ -138,22 +152,14 @@ export class ActionListComponent implements OnInit {
 
   confirmDelete(action: IAction) {
     this.actionService.delete(action.id).subscribe(response => {
-      // this.eventManager.broadcast({
-      //   name: "actionListModification",
-      //   content: "Deleted an action"
-      // });
       this.loadActions();
     });
     this.subscribeToSaveResponseMeh(this.logService.addToLog(
-      Moment(Date.now()), action.separationApplication.employee, action.separationApplication, EditType.DELETE
+      Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.DELETE
     ));
   }
 
   dispute(action: IAction) {
-    // increment numDisputes
-    // if numDisputes > 2, reveal 'accept', 'delete', and 'edit' button to HR
-    // change text of action.task to red
-    // disable dispute button
     action.numDisputes++;
     action.actionStatus = ActionStatus.DISPUTED;
     this.updateAction(action);
@@ -174,28 +180,39 @@ export class ActionListComponent implements OnInit {
   }
 
   edit(action: IAction) {
-    // set action.task to form value
-    // change action.task text color to normal
-    // reenable dispute button
     const editAction: IAction = this.actionForm.getRawValue();
     if (editAction.task === "" || null || action.task) {
       return;
     }
-    // console.log(action.id);
     action.task = editAction.task;
     action.actionStatus = ActionStatus.EDITED;
     this.updateAction(action);
   }
 
   accept(action: IAction) {
-    // set action.task text style to BOLD
-    // remove ability to edit this action
     action.numDisputes = 0;
     action.actionStatus = ActionStatus.ACCEPTED;
     this.updateAction(action);
   }
 
+  print() {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Final Checklist</title>
+        </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
+
   ngOnInit() {
+    this.loadCurrentEmployee();
     this.loadActions();
     this.loadFr();
     this.getApp();

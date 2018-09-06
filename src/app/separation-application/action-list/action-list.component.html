@@ -5,34 +5,36 @@
     <mat-list-item *ngFor="let action of actions; let i = index">
         <div class="flex-container">
             <div class="list-item">
-                <!-- <mat-checkbox [(ngModel)]="action.isCompleted" (click)="toggleCompleted(action)"></mat-checkbox> Applicant Employee ONLY -->
+                <mat-checkbox [(ngModel)]="action.isCompleted" (click)="toggleCompleted(action)"></mat-checkbox>
             </div>
-            <div class="list-item" [ngSwitch]="action.actionStatus">
-                <div *ngSwitchCase="'DISPUTED'" style="color: red;">
-                  <p>
-                    {{action.task}}<br/>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
-                  </p>
-                </div>
-                <div *ngSwitchCase="'EDITED'">
-                  <p>
-                    {{action.task}}<br/>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
-                  </p>
-                </div>
-                <div *ngSwitchCase="'ACCEPTED'" style="font-weight: bold;">
-                  <p>
-                    {{action.task}}<br/>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
-                  </p>
-                </div>
-                <div *ngSwitchDefault>
+              <div id="print-section">
+                <div class="list-item" [ngSwitch]="action.actionStatus">
+                  <div *ngSwitchCase="'DISPUTED'" style="color: red;">
                     <p>
                       {{action.task}}<br/>
                       Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
                     </p>
+                  </div>
+                  <div *ngSwitchCase="'EDITED'">
+                    <p>
+                      {{action.task}}<br/>
+                      Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    </p>
+                  </div>
+                  <div *ngSwitchCase="'ACCEPTED'" style="font-weight: bold;">
+                    <p>
+                      {{action.task}}<br/>
+                      Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    </p>
+                  </div>
+                  <div *ngSwitchDefault>
+                      <p>
+                        {{action.task}}<br/>
+                        Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                      </p>
+                  </div>
                 </div>
-            </div>
+              </div>
             <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR', 'ROLE_ADMIN']">
               <div class="list-item">
                   <button class="icon" mat-mini-fab (click)="confirmDelete(action)">X</button> <!--FR and HR ONLY-->
@@ -71,3 +73,4 @@
 <br/>
 <mat-divider></mat-divider>
 <br/>
+<button mat-raised-button (click)="print()">Print Checklist</button>
