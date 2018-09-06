@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate([redirectUrl]);
       this.sessionStorage.clear("redirectUrl");
     } else {
-      this.router.navigate([""]);
+      this.router.navigate(["dashboard"]);
     }
   }
 }

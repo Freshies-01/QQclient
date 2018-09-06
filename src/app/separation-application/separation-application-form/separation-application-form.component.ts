@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { SeparationApplicationService } from "app/shared/Services/separation-application.service";
 import {
   ISeparationApplication,
@@ -19,7 +20,10 @@ import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import * as moment from "moment";
 import { MatDialog, MatDialogRef } from "@angular/material";
-import { ISeparationApplicationLog, EditType } from "app/shared/model/separation-application-log.model";
+import {
+  ISeparationApplicationLog,
+  EditType
+} from "app/shared/model/separation-application-log.model";
 import * as Moment from "moment";
 @Component({
   selector: "app-separation-application-form",
@@ -50,7 +54,8 @@ export class SeparationApplicationFormComponent implements OnInit {
     private employeeService: EmployeeService,
     private logService: SeparationApplicationLogService,
     private activatedRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -95,20 +100,33 @@ export class SeparationApplicationFormComponent implements OnInit {
         this.separationApplicationService.update(sa)
         // logService.create, editType is UPDATE
       );
-      this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), this.currentEmployee, sa, EditType.UPDATE
-      ));
+      this.subscribeToSaveResponseMeh(
+        this.logService.addToLog(
+          Moment(Date.now()),
+          this.currentEmployee,
+          sa,
+          EditType.UPDATE
+        )
+      );
     } else {
       this.subscribeToSaveResponse(
         this.separationApplicationService.create(sa)
       );
-      this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), this.currentEmployee, sa, EditType.CREATE
-      ));
+      this.subscribeToSaveResponseMeh(
+        this.logService.addToLog(
+          Moment(Date.now()),
+          this.currentEmployee,
+          sa,
+          EditType.CREATE
+        )
+      );
     }
+    this.router.navigate(["/separationApplication"]);
   }
 
-  private subscribeToSaveResponseMeh(result: Observable<HttpResponse<ISeparationApplicationLog>>) {
+  private subscribeToSaveResponseMeh(
+    result: Observable<HttpResponse<ISeparationApplicationLog>>
+  ) {
     result.subscribe(
       (res: HttpResponse<ISeparationApplication>) => this.onSaveSuccess(),
       (res: HttpErrorResponse) => this.onSaveError()

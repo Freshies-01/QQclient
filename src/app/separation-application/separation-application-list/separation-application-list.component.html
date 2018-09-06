@@ -1,5 +1,8 @@
-<a [routerLink]="['./new']">Create Separation Application</a>
-<h1>Here is a list of SA:</h1>
+<h1>Here is a list of SA:
+  <a class="addRecordButton" mat-mini-fab [routerLink]="['./new']">
+    <mat-icon>add</mat-icon>
+  </a>
+</h1>
 <mat-form-field>
   <mat-select id="list-filter" placeholder="Filter">
     <mat-option value="all" (click)="filterAll()">All</mat-option>
@@ -15,8 +18,8 @@
           <mat-card-title>Name: {{app.employee?.user?.firstName}} {{app.employee?.user?.lastName}}</mat-card-title>
           <mat-card-subtitle>
             HR: {{app.hr?.employee?.user?.firstName}}
-            <br/> FR: {{app.fr?.employee?.user?.firstName}}
-            <br/> Location: {{app.employee?.location?.city}}
+            <br /> FR: {{app.fr?.employee?.user?.firstName}}
+            <br /> Location: {{app.employee?.location?.city}}
             <li *ngFor="let action of app.actions">
               <div>
                 <p>action.task</p>
@@ -27,7 +30,7 @@
           </mat-card-subtitle>
         </div>
         <div style="justify-content: center">
-          <mat-progress-spinner class="status-progress" mode="determinate" [value]="value"></mat-progress-spinner><br/>
+          <mat-progress-spinner class="status-progress" mode="determinate" [value]="value"></mat-progress-spinner><br />
           <mat-card-subtitle>Status: {{app.status}}</mat-card-subtitle>
           <a [routerLink]="['/separationApplication', app.id, 'view' ]">
             <button mat-raised-button>
@@ -37,6 +40,6 @@
         </div>
       </div>
     </mat-card>
-    <br/>
+    <br />
   </div>
 </div>
