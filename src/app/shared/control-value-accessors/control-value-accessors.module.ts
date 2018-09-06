@@ -9,6 +9,8 @@ import { DialogPickFrComponent } from "./fr-field/dialog-pick-fr/dialog-pick-fr.
 import { DialogPickEmployeeComponent } from "./employee-field/dialog-pick-employee/dialog-pick-employee.component";
 import { DepartmentFieldComponent } from "./department/department-field.component";
 import { DialogPickDepartmentComponent } from "./department/dialog-pick-department/dialog-pick-department.component";
+import { LocationFieldComponent } from "./location-field/location-field.component";
+import { DialogPickLocationComponent } from "./location-field/dialog-pick-location/dialog-pick-location.component";
 
 @NgModule({
   imports: [CommonModule, AngularMaterialModule],
@@ -20,7 +22,9 @@ import { DialogPickDepartmentComponent } from "./department/dialog-pick-departme
     DialogPickFrComponent,
     DialogPickEmployeeComponent,
     DepartmentFieldComponent,
-    DialogPickDepartmentComponent
+    DialogPickDepartmentComponent,
+    LocationFieldComponent,
+    DialogPickLocationComponent
   ],
   exports: [
     EmployeeFieldComponent,
@@ -28,13 +32,15 @@ import { DialogPickDepartmentComponent } from "./department/dialog-pick-departme
     HrFieldComponent,
     FrFieldComponent,
     DialogPickFrComponent,
-    DepartmentFieldComponent
+    DepartmentFieldComponent,
+    LocationFieldComponent
   ],
   entryComponents: [
     DialogPickHrComponent,
     DialogPickFrComponent,
     DialogPickEmployeeComponent,
-    DialogPickDepartmentComponent
+    DialogPickDepartmentComponent,
+    DialogPickLocationComponent
   ]
 })
 export class ControlValueAccessorsModule {}
