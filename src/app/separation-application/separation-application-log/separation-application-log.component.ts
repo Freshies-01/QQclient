@@ -10,7 +10,8 @@ import { SeparationApplicationLogService } from "app/shared/Services/separation-
 @Component({
   // tslint:disable-next-line:component-selector
   selector: "jhi-separation-application-log",
-  templateUrl: "./separation-application-log.component.html"
+  templateUrl: "./separation-application-log.component.html",
+  styleUrls: ["./separation-application-log.component.css"]
 })
 export class SeparationApplicationLogComponent implements OnInit {
   separationApplicationLogs: ISeparationApplicationLog[];

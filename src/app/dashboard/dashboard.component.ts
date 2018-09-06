@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.generateCard(
       "Closed Applications",
       "./dashboardCards/closed-application-card",
-      PendingApplicationCardComponent
+      ClosedApplicationCardComponent
     );
     this.generateCard(
       "Application Report",
