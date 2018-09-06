@@ -4,7 +4,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { SeparationApplicationListComponent } from "./separation-application-list/separation-application-list.component";
 import { SeparationApplicationFormComponent } from "./separation-application-form/separation-application-form.component";
-import { ActionListComponent } from "./action-list/action-list.component";
+import { ActionListComponent, ActionEditPopupComponent } from "./action-list/action-list.component";
+import { SeparationApplicationLogComponent } from "./separation-application-log/separation-application-log.component";
 
 import { AngularMaterialModule } from "app/shared/angular-material.module";
 import { SharedModule } from "app/shared/shared.module";
@@ -22,7 +23,12 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
   declarations: [
     SeparationApplicationListComponent,
     SeparationApplicationFormComponent,
-    ActionListComponent
+    ActionListComponent,
+    ActionEditPopupComponent,
+    SeparationApplicationLogComponent
+  ],
+  entryComponents: [
+    ActionEditPopupComponent
   ]
 })
 export class SeparationApplicationModule {}

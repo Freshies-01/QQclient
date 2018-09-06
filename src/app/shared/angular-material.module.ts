@@ -13,7 +13,8 @@ import {
   MatNativeDateModule,
   MatListModule,
   MatStepperModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTableModule
 } from "@angular/material";
 import { MatDialogModule } from "@angular/material/dialog";
 
@@ -33,7 +34,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatStepperModule,
     MatSelectModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -50,7 +52,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatStepperModule,
     MatSelectModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ],
   providers: []
 })

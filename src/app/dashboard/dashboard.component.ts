@@ -3,13 +3,17 @@ import { DashboardCardsService } from "./dashboardCardsService";
 import { DashboardCard } from "./dashboardCards/dashboardCard";
 import { PendingApplicationCardComponent } from "./dashboardCards/pending-application-card/pending-application-card.component";
 import { ClosedApplicationCardComponent } from "./dashboardCards/closed-application-card/closed-application-card.component";
+import { ApplicationReportCardComponent } from "./dashboardCards/application-report-card/application-report-card.component";
+import { FunctionWiseDurationCardComponent } from "./dashboardCards/function-wise-duration-card/function-wise-duration-card.component";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.css"],
   entryComponents: [
     PendingApplicationCardComponent,
-    ClosedApplicationCardComponent
+    ClosedApplicationCardComponent,
+    ApplicationReportCardComponent,
+    FunctionWiseDurationCardComponent
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -33,6 +37,16 @@ export class DashboardComponent implements OnInit {
       "Closed Applications",
       "./dashboardCards/closed-application-card",
       PendingApplicationCardComponent
+    );
+    this.generateCard(
+      "Application Report",
+      "./dashboardCards/application-report-card",
+      ApplicationReportCardComponent
+    );
+    this.generateCard(
+      "Average Function Wise Duration",
+      "./dashboardCards/function-wise-duration-card",
+      FunctionWiseDurationCardComponent
     );
   }
 

@@ -1,4 +1,7 @@
 <h3>Edit Action</h3>
-<!-- <form>
-    <input matInput formControlName="task" [(ngModel)]="action.task">
-</form> -->
+<form (ngSubmit)="close()" [formGroup]="actionEditForm">
+  <mat-form-field appearance="outline">
+      <input matInput formControlName="task">
+  </mat-form-field>
+    <button mat-mini-fab type="submit">OK</button>
+</form>

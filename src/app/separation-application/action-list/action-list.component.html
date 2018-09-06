@@ -4,60 +4,69 @@
     <br/>
     <mat-list-item *ngFor="let action of actions; let i = index">
         <div class="flex-container">
-
             <div class="list-item">
                 <!-- <mat-checkbox [(ngModel)]="action.isCompleted" (click)="toggleCompleted(action)"></mat-checkbox> Applicant Employee ONLY -->
             </div>
             <div class="list-item" [ngSwitch]="action.actionStatus">
                 <div *ngSwitchCase="'DISPUTED'" style="color: red;">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}<br/>
+                  <p>
+                    {{action.task}}<br/>
+                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchCase="'EDITED'">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}<br/>
+                  <p>
+                    {{action.task}}<br/>
+                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchCase="'ACCEPTED'" style="font-weight: bold;">
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
+                  <p>
+                    {{action.task}}<br/>
                     Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                  </p>
                 </div>
                 <div *ngSwitchDefault>
-                    <form [formGroup]="actionEditForm">
-                        <input matInput formControlName="task" [(ngModel)]="action.task">
-                    </form>
-                    Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    <p>
+                      {{action.task}}<br/>
+                      Added by {{action.functionReps?.employee?.user?.firstName}} {{action.functionReps?.employee?.user?.lastName}}
+                    </p>
                 </div>
             </div>
-            <div class="list-item">
-                <button class="icon" mat-mini-fab (click)="confirmDelete(action.id)">X</button> <!--FR ONLY-->
+            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_HR', 'ROLE_ADMIN']">
+              <div class="list-item">
+                  <button class="icon" mat-mini-fab (click)="confirmDelete(action)">X</button> <!--FR and HR ONLY-->
+              </div>
             </div>
-
-            <div class="list-item"> <!--Employee ONLY-->
-                <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
+            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']">
+              <div *ngIf="action.actionStatus != 'DISPUTED' && action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee ONLY-->
+                  <button (click)="dispute(action)" class="icon" mat-mini-fab>!</button>
+              </div>
             </div>
-            <div class="list-item" (click)="openDialog(action)"> <!--FR ONLY-->
-                <button class="icon" mat-mini-fab>Edit</button>
+            <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_ADMIN']">
+              <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--FR ONLY-->
+                  <button class="icon" (click)="openDialog(action)" mat-mini-fab>Edit</button>
+              </div>
             </div>
-            <div class="list-item"> <!--Employee ONLY, + HR if numDisputes > 2-->
-                <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
+            <div *appHasAnyAuthority="['ROLE_USER', 'ROLE_HR', 'ROLE_ADMIN']">
+              <div *ngIf="action.actionStatus != 'ACCEPTED'" class="list-item"> <!--Employee and HR ONLY-->
+                  <button class="icon" (click)="accept(action)" mat-mini-fab>OK</button>
+              </div>
             </div>
             <br/>
         </div>
         <br/>
     </mat-list-item>
-    <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
-        <mat-form-field>
-            <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
-        </mat-form-field>
-        <button class="icon" mat-mini-fab type="submit">+</button>
-        <br/>
-    </form>
+    <br/>
+    <div *appHasAnyAuthority="['ROLE_FUNCTION', 'ROLE_ADMIN']">
+      <form (ngSubmit)="save()" [formGroup]="actionForm"> <!--FR ONLY-->
+          <mat-form-field>
+              <input matInput formControlName="task" placeholder="Add new task then hit 'Enter'" name="task">
+          </mat-form-field>
+          <button class="icon" mat-mini-fab type="submit">+</button>
+          <br/>
+      </form>
+    </div>
 </mat-list>
 <br/>
 <mat-divider></mat-divider>
