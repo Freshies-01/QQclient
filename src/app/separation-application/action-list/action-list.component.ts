@@ -121,7 +121,7 @@ export class ActionListComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.actionService.create(action));
       this.subscribeToSaveResponseMeh(this.logService.addToLog(
-        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.UPDATE
+        Moment(Date.now()), this.currentEmployee, action.separationApplication, EditType.CREATE
       ));
     }
   }
@@ -152,10 +152,6 @@ export class ActionListComponent implements OnInit {
 
   confirmDelete(action: IAction) {
     this.actionService.delete(action.id).subscribe(response => {
-      // this.eventManager.broadcast({
-      //   name: "actionListModification",
-      //   content: "Deleted an action"
-      // });
       this.loadActions();
     });
     this.subscribeToSaveResponseMeh(this.logService.addToLog(
@@ -164,10 +160,6 @@ export class ActionListComponent implements OnInit {
   }
 
   dispute(action: IAction) {
-    // increment numDisputes
-    // if numDisputes > 2, reveal 'accept', 'delete', and 'edit' button to HR
-    // change text of action.task to red
-    // disable dispute button
     action.numDisputes++;
     action.actionStatus = ActionStatus.DISPUTED;
     this.updateAction(action);
@@ -188,25 +180,35 @@ export class ActionListComponent implements OnInit {
   }
 
   edit(action: IAction) {
-    // set action.task to form value
-    // change action.task text color to normal
-    // reenable dispute button
     const editAction: IAction = this.actionForm.getRawValue();
     if (editAction.task === "" || null || action.task) {
       return;
     }
-    // console.log(action.id);
     action.task = editAction.task;
     action.actionStatus = ActionStatus.EDITED;
     this.updateAction(action);
   }
 
   accept(action: IAction) {
-    // set action.task text style to BOLD
-    // remove ability to edit this action
     action.numDisputes = 0;
     action.actionStatus = ActionStatus.ACCEPTED;
     this.updateAction(action);
+  }
+
+  print() {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Final Checklist</title>
+        </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
   }
 
   ngOnInit() {
