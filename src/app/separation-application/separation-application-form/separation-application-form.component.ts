@@ -12,12 +12,15 @@ import { IEmployee } from "app/shared/model/employee.model";
 import { EmployeeService } from "app/shared/Services/employee.service";
 import { IHrReps } from "app/shared/model/hr-reps.model";
 import { HrRepsService } from "app/shared/Services/hr-reps.service";
+import { SeparationApplicationLogService } from "app/shared/Services/separation-application-log.service";
 import { IFunctionReps } from "app/shared/model/function-reps.model";
 // add import for SeparationApplicationLogService
 import { FunctionRepsService } from "app/shared/Services/function-reps.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import * as moment from "moment";
 import { MatDialog, MatDialogRef } from "@angular/material";
+import { ISeparationApplicationLog, EditType } from "app/shared/model/separation-application-log.model";
+import * as Moment from "moment";
 @Component({
   selector: "app-separation-application-form",
   templateUrl: "./separation-application-form.component.html",
@@ -25,6 +28,7 @@ import { MatDialog, MatDialogRef } from "@angular/material";
 })
 export class SeparationApplicationFormComponent implements OnInit {
   statusOptions = SeparationApplicationStatus;
+  private currentEmployee: IEmployee;
 
   public appForm = new FormGroup({
     id: new FormControl(null),
@@ -43,9 +47,10 @@ export class SeparationApplicationFormComponent implements OnInit {
     private separationApplicationService: SeparationApplicationService,
     private hrRepsService: HrRepsService,
     private functionRepsService: FunctionRepsService,
+    private employeeService: EmployeeService,
+    private logService: SeparationApplicationLogService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog
-    // private logService: SeparationApplicationLogService
   ) {}
 
   ngOnInit() {
@@ -54,6 +59,7 @@ export class SeparationApplicationFormComponent implements OnInit {
         this.mapSeparationApplicationToAppForm(routeData.separationApplication);
       }
     });
+    this.loadCurrentEmployee();
   }
 
   mapSeparationApplicationToAppForm(sa: SeparationApplication) {
@@ -89,12 +95,24 @@ export class SeparationApplicationFormComponent implements OnInit {
         this.separationApplicationService.update(sa)
         // logService.create, editType is UPDATE
       );
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), this.currentEmployee, sa, EditType.UPDATE
+      ));
     } else {
       this.subscribeToSaveResponse(
         this.separationApplicationService.create(sa)
-        // logService.create, editType is CREATE
       );
+      this.subscribeToSaveResponseMeh(this.logService.addToLog(
+        Moment(Date.now()), this.currentEmployee, sa, EditType.CREATE
+      ));
     }
+  }
+
+  private subscribeToSaveResponseMeh(result: Observable<HttpResponse<ISeparationApplicationLog>>) {
+    result.subscribe(
+      (res: HttpResponse<ISeparationApplication>) => this.onSaveSuccess(),
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
   }
 
   private onSaveSuccess() {}
@@ -111,4 +129,13 @@ export class SeparationApplicationFormComponent implements OnInit {
   }
 
   private onError(errorMessage: string) {}
+
+  loadCurrentEmployee() {
+    this.employeeService.findCurrent().subscribe(
+      (res: HttpResponse<IEmployee>) => {
+        this.currentEmployee = res.body;
+      },
+      (res: HttpErrorResponse) => console.log(res.message)
+    );
+  }
 }
