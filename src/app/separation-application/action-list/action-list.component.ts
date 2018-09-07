@@ -198,15 +198,19 @@ export class ActionListComponent implements OnInit {
 
   print() {
     let list: string;
+    list = "<html><h2>Final Checklist</h2><ul>";
     for (const action of this.actions) {
-      if (action.actionStatus === 'ACCEPTED') {
-        list += "<p style=\"font-weight: bold;\">" + action.task + "</p>";
+      if (action.actionStatus === 'ACCEPTED' && action.isCompleted === true) {
+        list += "<input type=\"checkbox\" style=\"font-weight: bold; padding-left: 10px;\" checked disabled>" + action.task + "<br/>";
+      } else if (action.actionStatus === 'ACCEPTED' && action.isCompleted === false) {
+        list += "<input type=\"checkbox\" style=\"font-weight: bold; padding-left: 10px;\" disabled>" + action.task + "<br/>";
       } else {
-        list += "<p>" + action.task + "</p>";
+        list += "<input type=\"checkbox\" style=\"padding-left: 10px;\" disabled>" + action.task + "<br/>";
       }
     }
+    list += "<ul></html>";
 
-    FileSaver.saveAs(new Blob([list], {}), "test.html");
+    FileSaver.saveAs(new Blob([list], {}), "FinalChecklist.html");
   }
 
   ngOnInit() {
