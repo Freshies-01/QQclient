@@ -1,4 +1,4 @@
-<a [routerLink]="['/location']">
+<a (click)="previousState()">
   <mat-icon>arrow_back</mat-icon>
 </a>
 <form (ngSubmit)="onSubmit()" [formGroup]="createLocationForm">

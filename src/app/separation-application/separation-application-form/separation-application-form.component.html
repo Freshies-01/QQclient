@@ -1,4 +1,7 @@
 <div>
+  <a (click)="previousState()">
+      <mat-icon>arrow_back</mat-icon>
+  </a>
   <form (ngSubmit)="save()" [formGroup]="appForm">
     <div class="formField">
       <mat-form-field appearance="outline">

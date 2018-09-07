@@ -55,4 +55,8 @@ export class EmployeeRegisterComponent implements OnInit {
       .q_qsave(this.CreateUserFromUserFormGroup())
       .subscribe();
   }
+
+  previousState() {
+    window.history.back();
+  }
 }
