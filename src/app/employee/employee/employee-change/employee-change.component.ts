@@ -50,4 +50,8 @@ export class EmployeeChangeComponent implements OnInit {
   SaveUserForm() {
     console.log(this.userFormGroup.getRawValue());
   }
+
+  previousState() {
+    window.history.back();
+  }
 }

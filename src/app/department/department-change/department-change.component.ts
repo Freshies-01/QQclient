@@ -32,4 +32,8 @@ export class DepartmentChangeComponent implements OnInit {
         this.router.navigate(["../"], { relativeTo: this.activatedRoute })
       );
   }
+
+  previousState() {
+    window.history.back();
+  }
 }
