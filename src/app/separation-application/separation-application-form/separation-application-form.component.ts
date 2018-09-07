@@ -156,4 +156,8 @@ export class SeparationApplicationFormComponent implements OnInit {
       (res: HttpErrorResponse) => console.log(res.message)
     );
   }
+
+  previousState() {
+    window.history.back();
+  }
 }

@@ -1,5 +1,7 @@
-<h1>Update User</h1>
-
+<a (click)="previousState()">
+    <mat-icon>arrow_back</mat-icon>
+</a>
+<h1>Change Department</h1>
 <form [formGroup]="departmentChangeForm" (ngSubmit)="onSubmit()">
   <p>
     <mat-form-field appearance="outline">

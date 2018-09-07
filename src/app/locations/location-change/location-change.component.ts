@@ -66,4 +66,8 @@ export class LocationChangeComponent implements OnInit {
         () => this.router.navigate(["location"])
       );
   }
+
+  previousState() {
+    window.history.back();
+  }
 }
