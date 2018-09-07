@@ -13,17 +13,36 @@ export class SeparationApplicationListComponent implements OnInit {
   pendingApplications: ISeparationApplication[];
   closedApplications: ISeparationApplication[];
   applications: ISeparationApplication[];
-  value = 100;
+  value: number;
 
   constructor(
     private separationApplicationService: SeparationApplicationService
   ) {}
+
+  trackActionProgress(apps: ISeparationApplication[]) {
+    console.log(apps);
+    for (const app of apps) {
+      if (app.actions) {
+        if (app.actions.length === 0) {
+          return;
+        }
+        let numCompleted = 0;
+        for (const action of app.actions) {
+          if (action.isCompleted === true) {
+            numCompleted++;
+          }
+        }
+        this.value = (numCompleted / app.actions.length) * 100;
+      }
+    }
+  }
 
   queryApps() {
     this.separationApplicationService.findByLogin().subscribe(
       (res: HttpResponse<ISeparationApplication[]>) => {
         this.separationApplications = res.body;
         this.applications = this.separationApplications;
+        // this.trackActionProgress(this.applications);
       },
       (res: HttpErrorResponse) => console.log(res.message)
     );
@@ -34,6 +53,7 @@ export class SeparationApplicationListComponent implements OnInit {
       (res: HttpResponse<ISeparationApplication[]>) => {
         this.separationApplications = res.body;
         this.applications = this.separationApplications;
+        // this.trackActionProgress(this.applications);
       },
       (res: HttpErrorResponse) => console.log(res.message)
     );
@@ -43,6 +63,7 @@ export class SeparationApplicationListComponent implements OnInit {
       (res: HttpResponse<ISeparationApplication[]>) => {
         this.pendingApplications = res.body;
         this.applications = this.pendingApplications;
+        // this.trackActionProgress(this.applications);
       },
       (res: HttpErrorResponse) => console.log(res.message)
     );
@@ -52,13 +73,14 @@ export class SeparationApplicationListComponent implements OnInit {
       (res: HttpResponse<ISeparationApplication[]>) => {
         this.closedApplications = res.body;
         this.applications = this.closedApplications;
+        // this.trackActionProgress(this.applications);
       },
       (res: HttpErrorResponse) => console.log(res.message)
     );
   }
 
   filterAll() {
-    this.loadAll();
+    this.queryApps();
   }
 
   filterPending() {
