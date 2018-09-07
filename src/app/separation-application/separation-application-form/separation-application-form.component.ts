@@ -121,7 +121,6 @@ export class SeparationApplicationFormComponent implements OnInit {
         )
       );
     }
-    this.router.navigate(["/separationApplication"]);
   }
 
   private subscribeToSaveResponseMeh(
@@ -133,7 +132,9 @@ export class SeparationApplicationFormComponent implements OnInit {
     );
   }
 
-  private onSaveSuccess() {}
+  private onSaveSuccess() {
+    this.router.navigate(["/separationApplication"]);
+  }
 
   private onSaveError() {}
 
